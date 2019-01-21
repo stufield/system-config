@@ -1,0 +1,86 @@
+---
+output:
+  github_document:
+    html_preview: true
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(rlang)
+```
+
+# system_config
+A repository of system level files, 'dot' files, run command and configuration files
+
+---------
+
+## File Summary
+| File               | Configure                |
+|------------------- | ------------------------ |
+| `.Rprofile`        | Profile for R startup
+| `.Renviron`        | Config file for RStudio global variables
+| `.vimrc`           | Config file for VIM
+| `.gitconfig`       | Global config file for Git
+| `.gitignore_global`| Global Git ignore file
+| `.zshrc`           | Config file for Z-shell
+| `.bash_functions`  | BASH function utilities 
+| `.bashrc`          | Config file for Bourne Again Shell (BASH)
+| `.vinrc`           | Config file for VIM
+
+-------------
+
+### Debugger mode
+```{r, error = TRUE, eval = FALSE}
+f <- function(x) {
+  x + g(x)
+}
+
+g <- function(y) {
+  foo <- y * 2
+  bar <- paste0(foo, h())
+  bar - 100
+}
+
+h <- function() {
+  stop("error here", call. = FALSE)
+}
+
+f(pi)       # not very informative
+
+traceback() # traceback is ok
+
+# Turn on debugger mode
+bug
+
+f(pi)       # automatically prints the stack trace as a tree
+
+# Turn off debugger mode
+bug
+```
+
+
+
+## Links:
+* `rlang` [https://www.tidyverse.org/articles/2019/01/rlang-0-3-1/](https://www.tidyverse.org/articles/2019/01/rlang-0-3-1/)
+
+
+
+<details>
+
+<summary>Session info</summary>
+```{r}
+devtools::session_info()
+```
+
+</details>
+
+-------------
+
+Created on `r Sys.Date()` by [Rmarkdown](https://github.com/rstudio/rmarkdown)
+(v`r utils::packageVersion("rmarkdown")`) and `r R.version$version.string`.

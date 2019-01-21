@@ -101,7 +101,7 @@ setopt HIST_VERIFY            # when entering line with history expansion,
 # R Variables
 ##############
 #export JAVA_HOME=/usr/lib/jvm/java-9-oracle/bin/java
-export R_SOMA_DEV=$HOME/SomaPackages/
+export R_SOMA_DEV=$HOME/bitbucket/
 export R_LIBS_USER=$HOME/r_libs
 export R_HISTSIZE=1000000
 export LOCAL_UID=`id -u`

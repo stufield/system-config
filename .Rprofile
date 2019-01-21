@@ -78,7 +78,8 @@ assign("print.detacher_class", function(detacher) {
 }, envir = .customCommands)
 assign("restart", structure("", class = "restart_class"), envir = .customCommands)
 assign("print.restart_class", function(rst) {
-  if ( usethis:::is_in_proj() ) {
+  if ( !is.null(tryCatch(usethis::proj_get(),
+                         error = function(e) NULL))) {
     usethis:::restart_rstudio()
   } else {
     message(

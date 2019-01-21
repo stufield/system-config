@@ -1,0 +1,25 @@
+
+# Testing Directory
+Test
+
+# no vi tmp files
+*.s[a-w][a-z]
+
+# no svn 
+.svn
+
+# no Mac files
+.DS_Store
+
+# history files
+.Rhistory
+.Rapp.history
+
+# RStudio files
+.Rproj.user
+
+# knitr and R markdown default tmp files and cache directories
+/*_cache/
+/cache/
+*.utf8.md
+*.knit.md

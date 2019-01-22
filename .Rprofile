@@ -57,7 +57,7 @@ assign("print.debugger_class", function(debugger) {
         cli::symbol$tick,
         "debugging is now ON",
         cli::symbol$pointer,
-        "option error set to rlang::entrace"
+        "option error set to rlang::entrace()"
         )
       )
   } else {

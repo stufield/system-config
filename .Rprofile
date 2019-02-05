@@ -1,6 +1,6 @@
 # General use suggested .Rprofile for env setup
 # Include additional functionality as required
-# 2018-06-14
+# 2019-01-24
 # Stu Field, Bioinformatics, SomaLogic, Inc.
 # --------------------------------------------------- #
 
@@ -15,8 +15,8 @@ options(
   warnPartialMatchAttr   = FALSE,
   showErrorCalls         = TRUE,
   roxygen.comment        = "#' ",
-  max.print              = 1000,
-  warn.length            = 8170,    # this is the max possible
+  max.print              = 500,
+  warn.length            = 8170,          # this is the max possible
   devtools.name          = "Stu Field",
   devtools.desc.author   = 'person("Stu", "Field", email = "sfield@somalogic.com", role = c("aut", "cre"))',
   devtools.desc.license  = "GPL-3",
@@ -31,11 +31,9 @@ options(
 # ------------------------- #
 if ( interactive() ) {
   options(prompt = "\033[34m> \033[39m")
-  suppressMessages(library(magrittr))
   suppressMessages(library(devtools))
   suppressMessages(library(usethis))
   suppressMessages(library(reprex))
-  suppressMessages(library(testthat))
   #library(somaverse)               # One day!
   #library(kknn)                    # k-Nearest Neighbor
   #library(gplots)                  # plotting

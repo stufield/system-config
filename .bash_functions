@@ -2,6 +2,21 @@
 # Stu/Mehan Bash Functions
 # --------------------------
 
+check_git_status(){
+  CURPWD=$PWD
+  cd $R_SOMA_DEV
+  for i in Soma*; do
+    echo ""
+    echo "~~~~~~~~~~~~~~~~~~~~~~~"
+    echo $i
+    echo "~~~~~~~~~~~~~~~~~~~~~~~"
+    cd $i
+    git status $1
+    cd $R_SOMA_DEV
+  ; done
+  cd $CURPWD
+}
+
 get_versions(){
   grep -r "^Version:" $(find ~/bitbucket -type f -name "DESCRIPTION")
 }

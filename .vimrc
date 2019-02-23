@@ -42,7 +42,7 @@ autocmd BufReadPost *
     \   exe "normal g`\"" |
     \ endif
 
-colorscheme stuvim
+"colorscheme stuvim
 syntax on
 
 " cpp S

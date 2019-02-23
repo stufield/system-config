@@ -6,7 +6,6 @@ check_git_status(){
   CURPWD=$PWD
   cd $R_SOMA_DEV
   for i in Soma*; do
-    echo ""
     echo "~~~~~~~~~~~~~~~~~~~~~~~"
     echo $i
     echo "~~~~~~~~~~~~~~~~~~~~~~~"

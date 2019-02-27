@@ -23,6 +23,4 @@
 	diff = false
 	log = false
 [push]
-	default = simple
-#[pull]
-  #rebase = true
+	default = current

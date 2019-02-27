@@ -22,5 +22,6 @@
 [pager]
 	diff = false
 	log = false
+	branch = false
 [push]
 	default = current

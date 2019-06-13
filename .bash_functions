@@ -1,11 +1,38 @@
-# --------------------------
-# Stu/Mehan Bash Functions
-# --------------------------
+# --------------------- #
+# Stu's Bash Functions
+# --------------------- #
+
+nuke_docker() {
+  echo "Stopping and removing all SLIDE docker containers"
+  CURPWD=$PWD
+  cd ~/slide-cli
+  for i in `docker ps -aq`; do 
+    docker stop $i
+    docker rm -f $i
+  ; done
+  cd $CURPWD
+  echo "Done ..."
+}
+
+update_README() {
+  CURPWD=$PWD
+  cd $R_SOMA_DEV
+  for i in [Ss]oma*; do
+    echo "~~~~~~~~~~~~~~~~~~~~~~~"
+    echo $i
+    echo "~~~~~~~~~~~~~~~~~~~~~~~"
+    cd $i
+    Rscript -e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/MacOS/pandoc'); rmarkdown::render('README.Rmd', quiet = TRUE)"
+    rm README.html
+    cd $R_SOMA_DEV
+  ; done
+  cd $CURPWD
+}
 
 check_git_status(){
   CURPWD=$PWD
   cd $R_SOMA_DEV
-  for i in Soma*; do
+  for i in [Ss]oma*; do
     echo "~~~~~~~~~~~~~~~~~~~~~~~"
     echo $i
     echo "~~~~~~~~~~~~~~~~~~~~~~~"

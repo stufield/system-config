@@ -18,10 +18,12 @@ options(
   max.print              = 500,
   warn.length            = 8170,          # this is the max possible
   devtools.name          = "Stu Field",
+  devtools.path          = "~/R-dev",
   devtools.desc.author   = 'person("Stu", "Field", email = "sfield@somalogic.com", role = c("aut", "cre"))',
   devtools.desc.license  = "GPL-3",
   covr.gcov              = Sys.which("gcov"),
-  repos                  = c(CRAN = "http://cran.rstudio.com"), # CRAN mirror
+  #repos                  = c(CRAN = "http://cran.rstudio.com"), # CRAN mirror
+  repos                  = c(RSPM = "https://rstudiopm.sladmin.com:4242/sl-internal-plus-full-cran/latest"), # RSPM
   reprex.si              = TRUE,
   reprex.tidyverse_quiet = TRUE,
   reprex.style           = FALSE

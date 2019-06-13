@@ -61,7 +61,10 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode bundler rake textmate lighthouse)
+plugins=(git vi-mode bundler rake textmate lighthouse zsh-autosuggestions)
+
+#bindkey ' ^M' autosuggest-execute   # execute suggestion; Shift+Enter
+bindkey ' ^M' autosuggest-accept     # accept suggestion; Shift+Enter
 
 # export MANPATH="/usr/local/man:$MANPATH"
 

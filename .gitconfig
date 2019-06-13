@@ -17,11 +17,16 @@
 [alias]
   taglog = log --pretty=oneline --decorate --tags --no-walk
   squash = reset --soft HEAD~1
-  squash2 = reset --soft HEAD~2
 	plog = log --graph --pretty=format:'%h -%d %s %n' --abbrev-commit --date=relative --branches
 [pager]
 	diff = false
 	log = false
+	tag = false
 	branch = false
 [push]
 	default = current
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f

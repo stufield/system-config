@@ -23,7 +23,7 @@ options(
   devtools.desc.license  = "GPL-3",
   covr.gcov              = Sys.which("gcov"),
   #repos                  = c(CRAN = "http://cran.rstudio.com"), # CRAN mirror
-  repos                  = c(RSPM = "https://rstudiopm.sladmin.com:4242/sl-internal-plus-full-cran/latest"), # RSPM
+  repos                  = c(RSPM = "http://rstudiopm.sladmin.com:4242/sl-internal-plus-full-cran/latest"), # RSPM
   reprex.si              = TRUE,
   reprex.tidyverse_quiet = TRUE,
   reprex.style           = FALSE

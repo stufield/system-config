@@ -1,13 +1,13 @@
-%%%%%%%%%%%%%%%%%%%%%%
+% ------------
 % font sizes
-%%%%%%%%%%%%%%%%%%%%%%
+% ------------
 % tiny         % scriptsize    % footnotesize    % small
 % normalsize   % large         % Large           % LARGE
 % huge         % Huge
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-%       Packages        %
-%%%%%%%%%%%%%%%%%%%%%%%%%
+% ----------
+% Packages
+% ----------
 \usepackage{array, afterpage, alltt, amsfonts, amsmath, amsthm, bm, chngpage, geometry, epsfig, marvosym, amssymb, paralist, extramarks, float, graphics, graphicx, wrapfig, rotating, multienum, enumerate, timestamp, lineno, listings, lscape, hyperref, setspace, fancyhdr, multirow, hanging, sectsty, eurosym, xr, url, textpos, longtable, soul, framed, verbatim}
 \usepackage[authoryear,round,semicolon]{natbib}
 %\usepackage[round,numbers,sort&compress]{natbib}
@@ -29,23 +29,22 @@
 % \circ, \diamond, \bullet, \cdot, \ask
 
 
-%%%%%%%%%%%%%%%%%%%%%%
+% ----------------------
 % Custom section fonts
-%%%%%%%%%%%%%%%%%%%%%%
+% ----------------------
 %\sectionfont{\rmfamily\bfseries\scshape\Large}
 %\subsectionfont{\rmfamily\mdseries\itshape\large}
 
 
-%%%%%%%%%%%%%%%%%%%%%%
+% ---------------------------------- %
 % Other possible font commands include:
-%%%%%%%%%%%%%%%%%%%%%%
+% -------------------------
 % \ttfamily for teletype,
 % \sffamily for sans serif,
 % \bfseries for bold,
 % \scshape for small caps,
 % \normalsize, \large, \Large, \LARGE sizes.
-%%%%%%%%%%%%%%%%%%%%%%%
-
+% ---------------------------------- %
 
 %\linenumbers         % include line numbers
 %\doublespace         % for double space
@@ -53,55 +52,60 @@
 %\singlespace         % for single space
 
 
+% --------------
+% Date Format
+% --------------
+\def \today{\number\day            % The day
+            \space \ifcase\month\or 
+            January\or 
+            February\or 
+            March\or 
+            April\or 
+            May\or
+            June\or 
+            July\or 
+            August\or 
+            September\or 
+            October\or 
+            November\or 
+            December\fi            % The month
+            \space \number\year    % The year
+            }   
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%
-%    Date Format   %
-%%%%%%%%%%%%%%%%%%%%
-\def \today{\number\day                          % The day
-                \space \ifcase\month\or January\or February\or March\or April\or May\or
-                       June\or July\or August\or September\or October\or November\or 
-                       December\fi               % The month
-                \space \number\year}             % The year
-
-                 
-%%%%%%%%%%%%%%%%%%%%%
-%%% Float control %%%
-%%% This may cause an extra page to be added for 1 page documents
+% ------------------
+% Float control
+% ------------------
+% This may cause an extra page to be added for 1 page documents
 \afterpage{\clearpage \begin{figure}[H] \end{figure}}
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%       Colour Definitions       %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+% --------------------
+% Colour Definitions
+% --------------------
 \definecolor{lightgray}{gray}{0.75}                  % gray
 \definecolor{orange}{rgb}{1,0.5,0}                   % orange
 \definecolor{MyDarkBlue}{rgb}{0,0.08,0.45}           % dark blue
 \definecolor{MyDarkGreen}{rgb}{0,0.45,0.08}          % dark green
 \definecolor{darkred}{RGB}{141,5,5}                  % dark red
 \definecolor{purple}{rgb}{0.7,0,0.9}                 % purple
-\definecolor{light-gray}{gray}{0.5}					         % gray font
+\definecolor{light-gray}{gray}{0.5}                  % gray font
 \definecolor{somapurple}{RGB}{86,73,99}              % soma purple
-\definecolor{somagray}{RGB}{180,171,168}					   % soma gray
+\definecolor{somagray}{RGB}{180,171,168}             % soma gray
 \newcommand{\purple}[1]{{\color{purple}#1}}          % purple font
 \newcommand{\red}[1]{{\color{red}#1}}                % red font
 \newcommand{\white}[1]{{\color{white}#1}}            % white font
 \newcommand{\blue}[1]{{\color{blue}#1}}              % blue font
-\newcommand{\navy}[1]{{\color{MyDarkBlue}#1}}			   % navy font
+\newcommand{\navy}[1]{{\color{MyDarkBlue}#1}}        % navy font
 \newcommand{\lightblue}[1]{{\color{CornflowerBlue}#1}} % light blue font
 \newcommand{\green}[1]{{\color{green}#1}}            % green font
-\newcommand{\somapurple}[1]{{\color{somapurple}#1}}	 % soma purple font
-\newcommand{\somagray}[1]{{\color{somagray}#1}}			 % soma gray font
+\newcommand{\somapurple}[1]{{\color{somapurple}#1}}  % soma purple font
+\newcommand{\somagray}[1]{{\color{somagray}#1}}      % soma gray font
 \newcommand{\darkred}[1]{{\color{darkred}#1}}        % darkred font
 
 
 % Setup the header and footer: this is from old Mike Soma template stuff
 %\lhead{\hmwkClass}
-%\chead{\shortTitle}		% this breaks everything
+%\chead{\shortTitle}     % this breaks everything
 %\rhead{\hmwkDueDate}
 %\cfoot{\thepage}
 \newcommand{\todo}[1]{\textbf{TODO: \hl{#1}}}
@@ -109,17 +113,15 @@
 %\numberwithin{figure}{section}
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --------------------------
 % horizontal line across page 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --------------------------
 \newcommand{\hzline}[1]{\noindent\rule[0mm]{\textwidth}{#1}}
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%       Shortcut Definitions        %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ----------------------
+% Shortcut Definitions
+% ----------------------
 \def \check{{\quad \Large \checkmark}}
 \def \mcheck{\marginpar[\hfill \huge \checkmark]{\huge \checkmark}}
 \def \tm{\textsuperscript{\textregistered}}
@@ -136,9 +138,9 @@
 \def \sidefig{\begin{sidewaysfigure}}
 \def \esidefig{\end{sidewaysfigure}}
 \def \benI{\begin{enumerate}[\itshape i\upshape)]}        % i, ii, iii
-%%%%%%%%%%%%%%%%%%%%%%
-%   math shortcuts   %
-%%%%%%%%%%%%%%%%%%%%%%
+% ---------------
+% math shortcuts
+% ---------------
 \def \bA{\bm{A}}
 \def \bB{\bm{B}}
 \def \bF{\bm{F}}
@@ -171,12 +173,9 @@
 \def \reals{\mathbb R}
 
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%         Shortcut Commands      %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------------------- 
+% Shortcut Commands
+% ------------------- 
 \newcommand{\code}[1]{\texttt{#1}}                      % type font
 \newcommand{\pkg}[1]{\textsf{#1}}                       % sans serif font
 \newcommand{\smc}[1]{\textsc{#1}}                       % small caps
@@ -187,10 +186,11 @@
 %\renewcommand{\thefootnote}{\alph{footnote}}           % makes footnotes by letter
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%           Itemize Control           %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%             First level             %
+% --------------------
+% Itemize Control
+% --------------------
+% First level
+% --------------------
 %\renewcommand{\theenumi}{\Roman{enumi}}
 %\renewcommand{\labelenumi}{\theenumi}
 %             Second level            %
@@ -198,82 +198,76 @@
 %\renewcommand{\labelenumii}{\theenumii}
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%         Creation of TextBox            %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ---------------------
+% Creation of TextBox
+% ---------------------
 \floatstyle{ruled}
 \newfloat{textbox}{t}{tbx}
 \floatname{textbox}{Box}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%       Create 'Exercise' theorem            %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ---------------------------- 
+% Create 'Exercise' theorem
+% ---------------------------- 
 \newtheoremstyle{exercise}%
-		{\topsep}	%      Space above
-		{\topsep}	%      Space below    
-		{}				%      Body font
-		{} 				% Indent amount (empty = no indent, \parindent = para indent)
-		{\bfseries}	% Thm head font
-		{.}				% Punctuation after thm head
-		{.5em}	 	% Space after thm head (\newline = linebreak)
-		{\thmname{#1}\thmnumber{ #2}\thmnote{ #3}} % Thm head spec
+    {\topsep}  %      Space above
+    {\topsep}  %      Space below    
+    {}        %      Body font
+    {}         % Indent amount (empty = no indent, \parindent = para indent)
+    {\bfseries}  % Thm head font
+    {.}        % Punctuation after thm head
+    {.5em}     % Space after thm head (\newline = linebreak)
+    {\thmname{#1}\thmnumber{ #2}\thmnote{ #3}} % Thm head spec
 \theoremstyle{exercise}
 \newtheorem{exercise}{Exercise}
 \newtheorem{challenge}[exercise]{*Exercise}
 \newtheorem{Challenge}[exercise]{**Exercise}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%          Create 'Assumption' theorem             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ---------------------------- 
+% Create 'Assumption' theorem
+% ---------------------------- 
 \newtheoremstyle{assmpt}%
-		{\topsep}	%      Space above
-		{\topsep}	%      Space below    
-		{}				%      Body font
-		{} 				% Indent amount (empty = no indent, \parindent = para indent)
-		{\bfseries}	% Thm head font
-		{.}				% Punctuation after thm head
-		{.5em}	 	% Space after thm head (\newline = linebreak)
-		{\thmname{#1}\thmnumber{ #2}\thmnote{ #3}} % Thm head spec
+    {\topsep}  %      Space above
+    {\topsep}  %      Space below    
+    {}        %      Body font
+    {}         % Indent amount (empty = no indent, \parindent = para indent)
+    {\bfseries}  % Thm head font
+    {.}        % Punctuation after thm head
+    {.5em}     % Space after thm head (\newline = linebreak)
+    {\thmname{#1}\thmnumber{ #2}\thmnote{ #3}} % Thm head spec
 \theoremstyle{assmpt}
 \newtheorem{assmpt}{Assumption}
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%           Create 'Objective' theorem            %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ---------------------------- 
+% Create 'Objective' theorem
+% ---------------------------- 
 \newtheoremstyle{obj}%
-		{\topsep}	%      Space above
-		{\topsep}	%      Space below    
-		{}				%      Body font
-		{} 				% Indent amount (empty = no indent, \parindent = para indent)
-		{\bfseries}	% Thm head font
-		{.}				% Punctuation after thm head
-		{.5em}	 	% Space after thm head (\newline = linebreak)
-		{\thmname{#1}\thmnumber{ #2}\thmnote{ #3}} % Thm head spec
+    {\topsep}  %      Space above
+    {\topsep}  %      Space below    
+    {}        %      Body font
+    {}         % Indent amount (empty = no indent, \parindent = para indent)
+    {\bfseries}  % Thm head font
+    {.}        % Punctuation after thm head
+    {.5em}     % Space after thm head (\newline = linebreak)
+    {\thmname{#1}\thmnumber{ #2}\thmnote{ #3}} % Thm head spec
 \theoremstyle{obj}
 \newtheorem{obj}{Objective}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%           Create 'Figure' theorem              %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------------------------ 
+% Create 'Figure' theorem
+% ------------------------
 \newtheoremstyle{figcap}%
-		{\topsep}	%      Space above
-		{\topsep}	%      Space below    
-		{}				%      Body font
-		{} 				% Indent amount (empty = no indent, \parindent = para indent)
-		{\bfseries}	% Thm head font
-		{.}				% Punctuation after thm head
-		{.5em}	 	% Space after thm head (\newline = linebreak)
-		{\thmname{#1}\thmnumber{ #2}\thmnote{ #3}} % Thm head spec
+    {\topsep}  %      Space above
+    {\topsep}  %      Space below    
+    {}        %      Body font
+    {}         % Indent amount (empty = no indent, \parindent = para indent)
+    {\bfseries}  % Thm head font
+    {.}        % Punctuation after thm head
+    {.5em}     % Space after thm head (\newline = linebreak)
+    {\thmname{#1}\thmnumber{ #2}\thmnote{ #3}} % Thm head spec
 \theoremstyle{figcap}
 \newtheorem{figcap}{Figure}
-%%%%%%%%%%%%%%%%%
-
 

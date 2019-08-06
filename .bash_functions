@@ -17,7 +17,7 @@ nuke_docker() {
 update_README() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
-  for i in [Ss]oma*; do
+  for i in {Soma*,somaverse}; do
     echo "~~~~~~~~~~~~~~~~~~~~~~~"
     echo $i
     echo "~~~~~~~~~~~~~~~~~~~~~~~"
@@ -32,19 +32,19 @@ update_README() {
 check_git_status(){
   CURPWD=$PWD
   cd $R_SOMA_DEV
-  for i in [Ss]oma*; do
-    echo "~~~~~~~~~~~~~~~~~~~~~~~"
-    echo $i
-    echo "~~~~~~~~~~~~~~~~~~~~~~~"
+  for i in {Soma*,somaverse}; do
     cd $i
-    git status $1
-    cd $R_SOMA_DEV
+    if [[ -z $(git status --porcelain) ]]; then
+      echo -e "* \033[33m$i\033[0m ... \033[32mClean\033[0m"
+    else 
+      echo "~~~~~~~~~~~~~~~~~~~~~~~"
+      echo -e "\033[31m* $i\033[0m ..."
+      git status $1
+      echo "~~~~~~~~~~~~~~~~~~~~~~~"
+    fi
+    cd ..
   ; done
   cd $CURPWD
-}
-
-get_versions(){
-  grep -r "^Version:" $(find ~/bitbucket -type f -name "DESCRIPTION")
 }
 
 runRerrors(){  # runs the output Rcheck R script

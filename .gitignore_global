@@ -1,5 +1,6 @@
 # Testing Directory
 Test
+old_code
 
 # no vi tmp files
 *.s[a-w][a-z]

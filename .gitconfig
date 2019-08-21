@@ -4,11 +4,14 @@
 [core]
 	excludefile = /Users/sfield/.gitignore_global
 	excludesfile = /Users/sfield/.gitignore_global
-	editor = vi
+	editor = vim
 [color]
 	ui = true
 [format]
 	pretty = fuller
+[merge]
+	conflictstyle = diff3
+  tool = vimdiff
 [diff]
 	renames = copies
   renamelimit = 0

@@ -25,8 +25,9 @@ options(
   #repos                  = c(CRAN = "http://cran.rstudio.com"), # CRAN mirror
   repos                  = c(RSPM = "http://rstudiopm.sladmin.com:4242/sl-internal-plus-full-cran/latest"), # RSPM
   reprex.si              = TRUE,
+  reprex.advertise       = TRUE,
   reprex.tidyverse_quiet = TRUE,
-  reprex.style           = FALSE
+  reprex.style           = TRUE
 )
 # ------------------------- #
 ## load packages immediately

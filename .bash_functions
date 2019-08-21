@@ -18,16 +18,24 @@ git_branch_cur() {
 
 
 nuke_docker() {
-  echo "Stopping and removing all SLIDE docker containers"
+  while true; do
+  read -q "yn?* Are you sure you want to nuke all Docker containers? (Y/n) "
+    case $yn in
+      [Yy] ) break;;
+      [Nn] ) echo "\n* Aborting."; return 1;;
+      * ) echo "* Please answer y (yes) or n (no):";;
+    esac
+  done
+  echo "\n* Stopping, removing, and nuking all SLIDE docker containers"
   CURPWD=$PWD
   cd ~/slide-cli
   for i in `docker ps -aq`; do 
     docker stop $i
     docker rm -f $i
-    #docker rmi $(docker images -q)
-  ; done
+  done
+  docker rmi $(docker images -q)
   cd $CURPWD
-  echo "Done ..."
+  echo "It is done ..."
 }
 
 update_README() {

@@ -6,11 +6,10 @@ git_branch_cur() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
   for i in {Soma*,somaverse}; do
-  #echo -e "* Installing to library: \033[31m$1\033[0m"
-  #echo -e "* \033[33mInstalling\033[0m ... \033[32m$i\033[0m"
     cd $i
     BRANCH=`git rev-parse --abbrev-ref HEAD`
-    echo "\033[33m>\033[0m \033[31m$i\033[0m: \033[32m$BRANCH\033[0m"
+    UNPUSHED=`git log @{upstream}.. --oneline | wc -l | xargs`
+    echo "\033[33m>\033[0m \033[31m$i\033[0m: \033[32m$BRANCH\033[0m \033[34m(ahead: \033[33m$UNPUSHED\033[0m)\033[0m"
     cd ..
   ; done
   cd $CURPWD

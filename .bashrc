@@ -82,8 +82,9 @@ esac
 
 
 
-PS1="\[\e[35;1m\]\u@\h\[\e[34;1m\](\[\e[32;1m\]f~\$(/bin/ls | /usr/bin/wc -l | /bin/sed 's: ::g'):h~\$(/bin/ls -A | /bin/grep ^[.] | /usr/bin/wc -l)|\$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')b|j:\j\[\e[34;1m\])
-\[\e[36;1m\]\w/$ \[\e[0m\]"
+PS1="\[\e[35;1m\]\u@\h\[\e[34;1m\](\[\e[32;1m\]\[\e[36;1m\]\w/$\[\e[0m\]\[\e[34;1m\]): \[\e[0m\]"
+#PS1="\[\e[35;1m\]\u@\h\[\e[34;1m\](\[\e[32;1m\]f~\$(/bin/ls | /usr/bin/wc -l | /bin/sed 's: ::g'):h~\$(/bin/ls -A | /bin/grep ^[.] | /usr/bin/wc -l)|\$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')b|j:\j\[\e[34;1m\])
+#\[\e[36;1m\]\w/$ \[\e[0m\]"
 
 set -o vi
 
@@ -141,9 +142,12 @@ fi
 
 #xmodmap ~/.Xmodmap
 
-xrdb ~/.Xdefaults
+if [[ "$OSTYPE" == "linux"* ]]; then
+	xrdb ~/.Xdefaults
+fi
+
 stty quit ""
 
 source $HOME/.bash_functions
 
-echo Welcome to BASH Linux, $USER
+echo Welcome to BASH $USER

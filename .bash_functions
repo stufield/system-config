@@ -11,7 +11,7 @@ git_branch_cur() {
     UNPUSHED=`git log @{upstream}.. --oneline | wc -l | xargs`
     echo "\033[33m>\033[0m \033[31m$i\033[0m: \033[32m$BRANCH\033[0m \033[34m(ahead: \033[33m$UNPUSHED\033[0m)\033[0m"
     cd ..
-  ; done
+  done
   cd $CURPWD
 }
 
@@ -48,7 +48,7 @@ update_README() {
     Rscript -e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/MacOS/pandoc'); rmarkdown::render('README.Rmd', quiet = TRUE)"
     rm README.html
     cd $R_SOMA_DEV
-  ; done
+  done
   cd $CURPWD
 }
 
@@ -66,7 +66,7 @@ check_git_status(){
       echo "~~~~~~~~~~~~~~~~~~~~~~~"
     fi
     cd ..
-  ; done
+  done
   cd $CURPWD
 }
 

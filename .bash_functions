@@ -2,6 +2,19 @@
 # Stu's Bash Functions
 # --------------------- #
 
+git_tags_cur() {
+  CURPWD=$PWD
+  cd $R_SOMA_DEV
+  for i in {Soma*,somaverse}; do
+    cd $i
+    BRANCH=`git rev-parse --abbrev-ref HEAD`
+    TAG=`git describe --abbrev=0 --tags`
+    echo "\033[33m>\033[0m \033[31m$i\033[0m ... \033[33m$TAG\033[0m"
+    cd $OLDPWD
+  done
+  cd $CURPWD
+}
+
 git_branch_cur() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
@@ -9,8 +22,8 @@ git_branch_cur() {
     cd $i
     BRANCH=`git rev-parse --abbrev-ref HEAD`
     UNPUSHED=`git log @{upstream}.. --oneline | wc -l | xargs`
-    echo "\033[33m>\033[0m \033[31m$i\033[0m: \033[32m$BRANCH\033[0m \033[34m(ahead: \033[33m$UNPUSHED\033[0m)\033[0m"
-    cd ..
+    echo "\033[33m>\033[0m \033[31m$i\033[0m: \033[32m$BRANCH\033[0m \033[34m(ahead: \033[33m$UNPUSHED\033[34m)\033[0m"
+    cd $OLDPWD
   done
   cd $CURPWD
 }
@@ -65,7 +78,7 @@ check_git_status(){
       git status $1
       echo "~~~~~~~~~~~~~~~~~~~~~~~"
     fi
-    cd ..
+    cd $OLDPWD
   done
   cd $CURPWD
 }

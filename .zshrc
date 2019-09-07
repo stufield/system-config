@@ -2,10 +2,41 @@
 export PATH=$HOME/bin:/usr/local/bin:/Library/TeX/texbin:$PATH
 
 export ZSH=$HOME/.oh-my-zsh
-export EDITOR=/usr/bin/vim
-#export SVN_EDITOR=/usr/bin/vim
-#export SVN_PATH=svn://kong.sladmin.com/svn-repository
 umask 022
+
+# ------------
+# VIM
+# ------------
+export EDITOR=/usr/bin/vim
+# Better searching in command mode
+bindkey -M vicmd '/' history-incremental-search-backward
+bindkey -M vicmd '?' history-incremental-search-forward
+
+# Beginning search with arrow keys
+bindkey "^[OA" up-line-or-beginning-search
+bindkey "^[OB" down-line-or-beginning-search
+bindkey -M vicmd "k" up-line-or-beginning-search
+bindkey -M vicmd "j" down-line-or-beginning-search
+
+function zle-keymap-select() {
+  zle reset-prompt
+  zle -R
+}
+
+zle -N zle-keymap-select
+
+function vi_mode_prompt_info() {
+  echo "${${KEYMAP/vicmd/[% NORMAL]%}/(main|viins)/[% INSERT]%}"
+}
+
+# define right prompt, regardless of whether the theme defined it
+RPS1='$(vi_mode_prompt_info)'
+RPS2=$RPS1
+
+# Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
+export KEYTIMEOUT=1
+
+
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -19,7 +50,6 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
-
 export TERM="screen-256color"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
@@ -63,21 +93,21 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git vi-mode bundler rake textmate lighthouse zsh-autosuggestions)
 
-#bindkey ' ^M' autosuggest-execute   # execute suggestion; Shift+Enter
-bindkey ' ^M' autosuggest-accept     # accept suggestion; Shift+Enter
+#bindkey '^M' autosuggest-execute  # execute suggestion; Shift+Enter
+bindkey '^ ' autosuggest-accept     # accept suggestion; Shift+Enter
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-###############################
-# source oh-my-zsh now
-# this MUST come AFTER the plugins call
-###############################
+# -----------------------------
+# source oh-my-zsh now this 
+# MUST come AFTER the plugins call
+# -----------------------------
 source $ZSH/oh-my-zsh.sh
 
 
-###############################
+# ---------------------------
 # Z-shell history settings
-###############################
+# ---------------------------
 bindkey '^R' history-incremental-pattern-search-backward    # pattern match
 #bindkey '^R' history-incremental-search-backward           # exact match
 SAVEHIST=1000000              # Number of entries
@@ -98,11 +128,9 @@ setopt HIST_VERIFY            # when entering line with history expansion,
                               # don’t execute the line directly; instead, perform history expansion 
                               # and reload the line into the editing buffer
 
-
-
-##############
+# -------------
 # R Variables
-##############
+# -------------
 #export JAVA_HOME=/usr/lib/jvm/java-9-oracle/bin/java
 export R_SOMA_DEV=$HOME/bitbucket/
 export R_LIBS_USER=$HOME/r_libs
@@ -111,9 +139,9 @@ export LOCAL_UID=`id -u`
 export PYTHONPATH=$HOME/scripts/modules
 export JAVA_HOME=/usr/bin/java
 
-####################
+# ------------------
 # Oracle Variables
-####################
+# ------------------
 export LD_LIBRARY_PATH=/usr/lib/oracle/12.2/client64/lib
 export TNS_ADMIN=/usr/lib/oracle/12.2/client64
 export ORACLE_HOME=/usr/lib/oracle/12.2/client64
@@ -144,4 +172,4 @@ stty quit ""
 
 source $HOME/.bash_functions
 
-echo Welcome to ZSH $USER
+echo "\033[32m✔\033[0m Welcome to \033[31mZSH \033[33m... \033[34m$USER\033[0m"

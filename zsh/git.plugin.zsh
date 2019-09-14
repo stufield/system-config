@@ -2,3 +2,4 @@
 alias gau='git add -u'
 alias gpo='git stash pop --index'
 alias gta='git tag -n'
+alias gac='git commit --amend --no-edit'

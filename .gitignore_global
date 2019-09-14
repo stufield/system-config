@@ -5,6 +5,10 @@ old_code
 # no vi tmp files
 *.s[a-w][a-z]
 
+# no tex tmp files
+*.aux
+*.out
+
 # no svn 
 .svn
 

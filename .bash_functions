@@ -21,8 +21,14 @@ git_branch_cur() {
   for i in {Soma*,somaverse}; do
     cd $i
     BRANCH=`git rev-parse --abbrev-ref HEAD`
-    UNPUSHED=`git log @{upstream}.. --oneline | wc -l | xargs`
-    echo "\033[33m>\033[0m \033[31m$i\033[0m: \033[32m$BRANCH\033[0m \033[34m(ahead: \033[33m$UNPUSHED\033[34m)\033[0m"
+    if [[ $BRANCH == 'master' ]]; then
+      UNPUSHED=`git log @{upstream}.. --oneline | wc -l | xargs`
+      echo "\033[33m>\033[0m \033[31m$i\033[0m: \033[32m$BRANCH\033[0m \033[34m(ahead upstream: \033[33m$UNPUSHED\033[34m)\033[0m"
+    else 
+      BEHIND_MASTER=`git rev-list --left-only --count master...$BRANCH`
+      AHEAD_MASTER=`git rev-list --right-only --count master...$BRANCH`
+      echo "\033[33m>\033[0m \033[31m$i\033[0m: \033[32m$BRANCH\033[0m \033[34m(behind master: \033[33m$BEHIND_MASTER\033[34m - ahead master: \033[33m$AHEAD_MASTER\033[34m)\033[0m"
+    fi
     cd $OLDPWD
   done
   cd $CURPWD
@@ -54,12 +60,9 @@ update_README() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
   for i in {Soma*,somaverse}; do
-    echo "~~~~~~~~~~~~~~~~~~~~~~~"
-    echo $i
-    echo "~~~~~~~~~~~~~~~~~~~~~~~"
+    echo "$i: OK"
     cd $i
     Rscript -e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/MacOS/pandoc'); rmarkdown::render('README.Rmd', quiet = TRUE)"
-    rm README.html
     cd $R_SOMA_DEV
   done
   cd $CURPWD

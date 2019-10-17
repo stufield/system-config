@@ -56,14 +56,17 @@ nuke_docker() {
   echo "It is done ..."
 }
 
-update_README() {
+render_README() {
+  echo "Rendering README.Rmd"
+  Rscript --vanilla -e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/MacOS/pandoc'); rmarkdown::render('README.Rmd', quiet = TRUE)"
+}
+
+update_READMEs() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
   for i in {Soma*,somaverse}; do
-    echo "$i: OK"
-    cd $i
-    Rscript -e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/MacOS/pandoc'); rmarkdown::render('README.Rmd', quiet = TRUE)"
-    cd $R_SOMA_DEV
+    echo "$i:"
+    cd $i && render_README && cd $R_SOMA_DEV
   done
   cd $CURPWD
 }

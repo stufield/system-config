@@ -1,6 +1,7 @@
+# --------------------------------------------------- #
 # General use suggested .Rprofile for env setup
 # Include additional functionality as required
-# 2019-01-24
+# 2020-02-26
 # Stu Field, Bioinformatics, SomaLogic, Inc.
 # --------------------------------------------------- #
 
@@ -8,26 +9,30 @@
 ## session options
 # ------------------------- #
 options(
-  stringsAsFactors       = FALSE,
-  showWarnCalls          = TRUE,
-  warnPartialMatchArgs   = FALSE,
-  warnPartialMatchDollar = FALSE,
-  warnPartialMatchAttr   = FALSE,
-  showErrorCalls         = TRUE,
-  roxygen.comment        = "#' ",
-  max.print              = 500,
-  warn.length            = 8170,          # this is the max possible
-  devtools.name          = "Stu Field",
-  devtools.path          = "~/R-dev",
-  devtools.desc.author   = 'person("Stu", "Field", email = "sfield@somalogic.com", role = c("aut", "cre"))',
-  devtools.desc.license  = "GPL-3",
-  covr.gcov              = Sys.which("gcov"),
-  #repos                  = c(CRAN = "http://cran.rstudio.com"), # CRAN mirror
-  repos                  = c(RSPM = "http://rstudiopm.sladmin.com:4242/sl-internal-plus-full-cran/latest"), # RSPM
-  reprex.si              = TRUE,
-  reprex.advertise       = TRUE,
-  reprex.tidyverse_quiet = TRUE,
-  reprex.style           = TRUE
+  stringsAsFactors           = FALSE,
+  showWarnCalls              = TRUE,
+  warnPartialMatchArgs       = FALSE,
+  warnPartialMatchDollar     = FALSE,
+  warnPartialMatchAttr       = FALSE,
+  showErrorCalls             = TRUE,
+  roxygen.comment            = "#' ",
+  max.print                  = 500,
+  warn.length                = 8170,          # this is the max possible
+  devtools.name              = "Stu Field",
+  devtools.path              = "~/R-dev",
+  devtools.desc.author       = 'person("Stu", "Field", email = "sfield@somalogic.com", role = c("aut", "cre"))',
+  devtools.desc.license      = "GPL-3",
+  covr.gcov                  = Sys.which("gcov"),
+  #repos                     = c(CRAN = "http://cran.rstudio.com"), # CRAN mirror
+  repos                      = c(RSPM = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/latest/"),
+  reprex.si                  = TRUE,
+  reprex.advertise           = TRUE,
+  reprex.tidyverse_quiet     = TRUE,
+  reprex.style               = TRUE,
+  reprex.highlight.hl_style  = "anotherdark",
+  reprex.highlight.font      = "Andale Mono Regular",
+  reprex.highlight.font_size = 100,
+  reprex.highlight.other     = "--line-numbers"
 )
 # ------------------------- #
 ## load packages immediately
@@ -44,7 +49,6 @@ if ( interactive() ) {
   #library(e1071)                   # Naive Bayes
   #library(glmnet)                  # Logistic Regression & Lasso
 }
-
 
 # Set up custom debugging environment
 .customCommands <- new.env()

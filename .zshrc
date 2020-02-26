@@ -93,11 +93,6 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git vi-mode bundler rake textmate lighthouse zsh-autosuggestions)
 
-#bindkey '^M' autosuggest-execute  # execute suggestion; Shift+Enter
-bindkey '^ ' autosuggest-accept     # accept suggestion; Shift+Enter
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # -----------------------------
 # source oh-my-zsh now this 
 # MUST come AFTER the plugins call
@@ -146,16 +141,8 @@ export LD_LIBRARY_PATH=/usr/lib/oracle/12.2/client64/lib
 export TNS_ADMIN=/usr/lib/oracle/12.2/client64
 export ORACLE_HOME=/usr/lib/oracle/12.2/client64
 
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -170,6 +157,8 @@ fi
 
 stty quit ""
 
+bindkey '^J' autosuggest-accept            # accept suggestion: Crtl-J
+#bindkey '^M' autosuggest-execute          # execute suggestion: Enter
 source $HOME/.bash_functions
 
 echo "\033[32m✔\033[0m Welcome to \033[31mZSH \033[33m... \033[34m$USER\033[0m"

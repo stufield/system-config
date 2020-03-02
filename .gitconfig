@@ -19,7 +19,7 @@
   tool = vimdiff
 [alias]
   taglog = log --pretty=oneline --decorate --tags --no-walk
-  squash = reset --soft HEAD~1
+  uncommit = reset --soft HEAD~1
 	plog = log --graph --pretty=format:'%h -%d %s %n' --abbrev-commit --date=relative --branches
 [pager]
 	diff = false

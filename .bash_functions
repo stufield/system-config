@@ -2,6 +2,22 @@
 # Stu's Bash Functions
 # --------------------- #
 
+git_tag_diff() {
+  CURPWD=$PWD
+  cd $R_SOMA_DEV
+  for i in {Soma*,somaverse}; do
+    cd $i
+    TAG1=`git describe --abbrev=0 --tags $(git rev-list --tags --skip=0 --max-count=1)`
+    TAG0=`git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1)`
+    echo "\033[33m>\033[0m \033[31m$i\033[0m ... \033[33m$TAG0 -> $TAG1\033[0m"
+    COMMITS=`git rev-list $TAG1 ^$TAG0 --count`
+    STAT=`git diff --shortstat $TAG1 ^$TAG0 ':(exclude)*.html'`
+    echo "$COMMITS commits,$STAT"
+    cd $OLDPWD
+  done
+  cd $CURPWD
+}
+
 git_tags_cur() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
@@ -71,7 +87,7 @@ update_READMEs() {
   cd $CURPWD
 }
 
-check_git_status(){
+git_check_status() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
   for i in {Soma*,somaverse}; do
@@ -79,9 +95,10 @@ check_git_status(){
     if [[ -z $(git status --porcelain) ]]; then
       echo -e "* \033[33m$i\033[0m ... \033[32mClean\033[0m"
     else 
+      BRANCH=`git rev-parse --abbrev-ref HEAD`
       echo "~~~~~~~~~~~~~~~~~~~~~~~"
-      echo -e "\033[31m* $i\033[0m ..."
-      git status $1
+      echo -e "\033[31m* $i\033[0m ... \033[34m$BRANCH\033[0m"
+      git status -s $1
       echo "~~~~~~~~~~~~~~~~~~~~~~~"
     fi
     cd $OLDPWD

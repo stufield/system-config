@@ -1,7 +1,7 @@
 # --------------------------------------------------- #
 # General use suggested .Rprofile for env setup
 # Include additional functionality as required
-# 2020-02-26
+# 2020-04-16
 # Stu Field, Bioinformatics, SomaLogic, Inc.
 # --------------------------------------------------- #
 
@@ -16,15 +16,15 @@ options(
   warnPartialMatchAttr       = FALSE,
   showErrorCalls             = TRUE,
   roxygen.comment            = "#' ",
-  max.print                  = 500,
-  warn.length                = 8170,          # this is the max possible
+  max.print                  = 500,         # default 1000 too verbose
+  warn.length                = 8170,        # this is the max possible
   devtools.name              = "Stu Field",
   devtools.path              = "~/R-dev",
   devtools.desc.author       = 'person("Stu", "Field", email = "sfield@somalogic.com", role = c("aut", "cre"))',
   devtools.desc.license      = "GPL-3",
   covr.gcov                  = Sys.which("gcov"),
   #repos                     = c(CRAN = "http://cran.rstudio.com"), # CRAN mirror
-  repos                      = c(RSPM = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/latest/"),
+  repos                      = c(rspm_latest = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/latest/"),
   reprex.si                  = TRUE,
   reprex.advertise           = TRUE,
   reprex.tidyverse_quiet     = TRUE,

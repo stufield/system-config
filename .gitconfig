@@ -1,35 +1,37 @@
 [user]
-	name = Stu Field
-	email = stu.g.field@gmail.com
+  name = Stu Field
+  email = stu.g.field@gmail.com
 [core]
-	excludefile = /Users/sfield/.gitignore_global
-	excludesfile = /Users/sfield/.gitignore_global
-	editor = vim
+  excludefile = /Users/sfield/.gitignore_global
+  excludesfile = /Users/sfield/.gitignore_global
+  editor = vim
 [color]
-	ui = true
+  ui = true
 [format]
-	pretty = fuller
+  pretty = fuller
 [merge]
-	conflictstyle = diff3
+  conflictstyle = diff3
   tool = vimdiff
 [diff]
-	renames = copies
+  renames = copies
   renamelimit = 0
   prompt = false
   tool = vimdiff
 [alias]
   taglog = log --pretty=oneline --decorate --tags --no-walk
   uncommit = reset --soft HEAD~1
-	plog = log --graph --pretty=format:'%h -%d %s %n' --abbrev-commit --date=relative --branches
+  plog = log --graph --pretty=format:'%h -%d %s %n' --abbrev-commit --date=relative --branches
 [pager]
-	diff = false
-	log = false
-	tag = false
-	branch = false
+  diff = false
+  log = false
+  tag = false
+  branch = false
 [push]
-	default = current
+  default = current
 [filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+[uploadpack]
+  allowFilter = true

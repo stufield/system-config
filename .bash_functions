@@ -12,7 +12,7 @@ git_tag_diff() {
     echo "\033[33m>\033[0m \033[31m$i\033[0m ... \033[33m$TAG0 -> $TAG1\033[0m"
     COMMITS=`git rev-list $TAG1 ^$TAG0 --count`
     STAT=`git diff --shortstat $TAG1 ^$TAG0 ':(exclude)*.html'`
-    echo "$COMMITS commits,$STAT"
+    echo "$i, $COMMITS commits,$STAT"
     cd $OLDPWD
   done
   cd $CURPWD

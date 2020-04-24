@@ -7,6 +7,7 @@ umask 022
 # ------------
 # VIM
 # ------------
+set -o vi
 export EDITOR=/usr/bin/vim
 # Better searching in command mode
 bindkey -M vicmd '/' history-incremental-search-backward
@@ -150,15 +151,14 @@ export ORACLE_HOME=/usr/lib/oracle/12.2/client64
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-
 if [[ "$OSTYPE" == "linux"* ]]; then
-	xrdb ~/.Xdefaults
+  xrdb ~/.Xdefaults
 fi
 
 stty quit ""
 
-bindkey '^J' autosuggest-accept            # accept suggestion: Crtl-J
-#bindkey '^M' autosuggest-execute          # execute suggestion: Enter
+bindkey '^J' autosuggest-accept     # accept suggestion: Crtl-J
+#bindkey '^M' autosuggest-execute   # execute suggestion: Enter
 source $HOME/.bash_functions
 
 echo "\033[32m✔\033[0m Welcome to \033[31mZSH \033[33m... \033[34m$USER\033[0m"

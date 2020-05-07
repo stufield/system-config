@@ -42,7 +42,6 @@ if ( interactive() ) {
   options(prompt = "\033[34m> \033[39m")
   suppressMessages(library(devtools))
   suppressMessages(library(usethis))
-  suppressMessages(library(git2r))
   suppressMessages(library(reprex))
   #library(somaverse)               # One day!
   #library(kknn)                    # k-Nearest Neighbor

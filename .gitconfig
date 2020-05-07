@@ -10,8 +10,9 @@
 [format]
   pretty = fuller
 [merge]
-  conflictstyle = diff3
   tool = vimdiff
+  conflictstyle = merge
+# conflictstyle = diff3
 [diff]
   renames = copies
   renamelimit = 0

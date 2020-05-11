@@ -5,14 +5,22 @@
 git_tag_diff() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
-  for i in {Soma*,somaverse}; do
+  for i in `ls -d */`; do
     cd $i
-    TAG1=`git describe --abbrev=0 --tags $(git rev-list --tags --skip=0 --max-count=1)`
-    TAG0=`git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1)`
-    echo "\033[33m>\033[0m \033[31m$i\033[0m ... \033[33m$TAG0 -> $TAG1\033[0m"
-    COMMITS=`git rev-list $TAG1 ^$TAG0 --count`
-    STAT=`git diff --shortstat $TAG1 ^$TAG0 ':(exclude)*.html'`
-    echo "$i, $COMMITS commits,$STAT"
+    if [ -d ".git" ]; then
+      TAG1=`git describe --abbrev=0 --tags $(git rev-list --tags --skip=0 --max-count=1)` > /dev/null 2>&1
+      TAG0=`git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1)` > /dev/null 2>&1
+      if [ -z "$TAG0" ]; then
+        echo "\033[33m>\033[0m \033[31m$i\033[0m ... \033[33mNo Tags ...\033[0m"
+      else
+        echo "\033[33m>\033[0m \033[31m$i\033[0m ... \033[33m$TAG0 -> $TAG1\033[0m"
+        COMMITS=`git rev-list $TAG1 ^$TAG0 --count`
+        STAT=`git diff --shortstat $TAG1 ^$TAG0 ':(exclude)*.html'`
+        echo "$i, $COMMITS commits,$STAT"
+      fi
+    else
+      echo "\033[33m>\033[0m \033[31m$i\033[0m ... \033[33mNot a Git repo ...\033[0m"
+    fi
     cd $OLDPWD
   done
   cd $CURPWD
@@ -21,11 +29,18 @@ git_tag_diff() {
 git_tags_cur() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
-  for i in {Soma*,somaverse}; do
+  for i in `ls -d */`; do
     cd $i
-    BRANCH=`git rev-parse --abbrev-ref HEAD`
-    TAG=`git describe --abbrev=0 --tags`
-    echo "\033[33m>\033[0m \033[31m$i\033[0m ... \033[33m$TAG\033[0m"
+    if [ -d ".git" ]; then
+      TAG=`git describe --abbrev=0 --tags` > /dev/null 2>&1
+      if [ -z "$TAG" ]; then
+        echo "\033[33m>\033[0m \033[32m$i\033[0m ... \033[33mNo tags\033[0m"
+      else
+        echo "\033[33m>\033[0m \033[32m$i\033[0m ... \033[33m$TAG\033[0m"
+      fi
+    else
+      echo "\033[33m>\033[0m \033[31mSkipping $i\033[0m ... not a Git repo"
+    fi
     cd $OLDPWD
   done
   cd $CURPWD
@@ -34,7 +49,7 @@ git_tags_cur() {
 git_branch_cur() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
-  for i in {Soma*,somaverse}; do
+  for i in {Soma*,somaverse,SMA,palantir}; do
     cd $i
     BRANCH=`git rev-parse --abbrev-ref HEAD`
     if [[ $BRANCH == 'master' ]]; then
@@ -90,16 +105,20 @@ update_READMEs() {
 git_check_status() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
-  for i in {Soma*,somaverse}; do
+  for i in `ls -d */`; do
     cd $i
-    if [[ -z $(git status --porcelain) ]]; then
-      echo -e "* \033[33m$i\033[0m ... \033[32mClean\033[0m"
-    else 
-      BRANCH=`git rev-parse --abbrev-ref HEAD`
-      echo "~~~~~~~~~~~~~~~~~~~~~~~"
-      echo -e "\033[31m* $i\033[0m ... \033[34m$BRANCH\033[0m"
-      git status -s $1
-      echo "~~~~~~~~~~~~~~~~~~~~~~~"
+    if [ -d ".git" ]; then
+      if [[ -z $(git status --porcelain) ]]; then
+        echo -e "* \033[33m$i\033[0m ... \033[32mClean\033[0m"
+      else 
+        BRANCH=`git rev-parse --abbrev-ref HEAD`
+        echo "~~~~~~~~~~~~~~~~~~~~~~~"
+        echo -e "\033[31m* $i\033[0m ... \033[34m$BRANCH\033[0m"
+        git status -s $1
+        echo "~~~~~~~~~~~~~~~~~~~~~~~"
+      fi
+    else
+      echo -e "* \033[33m$i\033[0m ... \033[32mNot a Git repo\033[0m"
     fi
     cd $OLDPWD
   done

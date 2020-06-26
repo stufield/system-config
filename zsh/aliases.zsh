@@ -20,15 +20,16 @@ alias bashreload='source ~/.bash_functions'
 alias cp='cp -i'				  # ask are you sure y/n?
 alias mv='mv -i'				  # ask are you sure y/n?
 alias trash='gvfs-trash'  # safer rm to ~/.local/share/Trash/files
-alias dush="du -sh"
+alias dush='du -sh'
 alias ds='dirs -v'
 
 # zsh
-alias zshconfig="vi ~/.zshrc"
-alias zshreload="source ~/.zshrc"
+alias zshconfig='vi ~/.zshrc'
+alias zshreload='source ~/.zshrc'
 
 # misc
 alias vinowrap="vi -c 'set nowrap'"
+alias slide='~/slide-cli/slide'
 
 #dockers
 #alias containerclean="docker ps -a -q | xargs docker rm"

@@ -75,15 +75,12 @@ nuke_docker() {
       * ) echo "* Please answer y (yes) or n (no):";;
     esac
   done
-  echo "\n* Stopping, removing, and nuking all SLIDE docker containers"
-  CURPWD=$PWD
-  cd ~/slide-cli
+  echo "\n* Stopping, removing, and nuking all SLIDE docker containers & images"
   for i in `docker ps -aq`; do 
     docker stop $i
     docker rm -f $i
   done
   docker rmi $(docker images -q)
-  cd $CURPWD
   echo "It is done ..."
 }
 

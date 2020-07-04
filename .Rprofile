@@ -1,7 +1,7 @@
 # --------------------------------------------------- #
 # General use suggested .Rprofile for env setup
 # Include additional functionality as required
-# 2020-04-16
+# 2020-06-28
 # Stu Field, Bioinformatics, SomaLogic, Inc.
 # --------------------------------------------------- #
 
@@ -9,21 +9,20 @@
 ## session options
 # ------------------------- #
 options(
-  stringsAsFactors           = FALSE,
   showWarnCalls              = TRUE,
+  showErrorCalls             = TRUE,
+  stringsAsFactors           = FALSE,
   warnPartialMatchArgs       = FALSE,
   warnPartialMatchDollar     = FALSE,
   warnPartialMatchAttr       = FALSE,
-  showErrorCalls             = TRUE,
   roxygen.comment            = "#' ",
   max.print                  = 500,         # default 1000 too verbose
   warn.length                = 8170,        # this is the max possible
   devtools.name              = "Stu Field",
   devtools.path              = "~/R-dev",
-  devtools.desc.author       = 'person("Stu", "Field", email = "sfield@somalogic.com", role = c("aut", "cre"))',
+  devtools.desc.author       = "person('Stu', 'Field', email = 'sfield@somalogic.com', role = c('aut', 'cre'))",
   devtools.desc.license      = "GPL-3",
   covr.gcov                  = Sys.which("gcov"),
-  #repos                     = c(CRAN = "http://cran.rstudio.com"), # CRAN mirror
   repos                      = c(rspm_latest = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/latest/"),
   reprex.si                  = TRUE,
   reprex.advertise           = TRUE,
@@ -40,59 +39,38 @@ options(
 # ------------------------- #
 if ( interactive() ) {
   options(prompt = "\033[34m> \033[39m")
+  #suppressMessages(library(reprex))
   #suppressMessages(library(devtools))
   #suppressMessages(library(usethis))
-  #suppressMessages(library(reprex))
   #library(somaverse)
   #library(glmnet)
 }
 
 # Set up custom debugging environment
 .customCommands <- new.env()
-.customCommands$bug <- structure("", class = "debugger_class")
-.customCommands$print.debugger_class <- function(debugger) {
+.customCommands$bugger <- structure("", class = "bugger_class")
+.customCommands$print.bugger_class <- function(.bug) {
   if ( !identical(as.character(getOption("error")), "rlang::entrace") ) {
     options(error = quote(rlang::entrace()),
             rlang__backtrace_on_error = "full")  # or "collapse"
     message(
-      crayon::green(
-        cli::symbol$tick,
-        "Enhanced debugging: ON",
-        cli::symbol$arrow_right,
-        "getOption('error') set to rlang::entrace()"
-        )
-      )
+      "Enhanced debugging: ON >> getOption('error') set to rlang::entrace()"
+    )
   } else {
     options(error = NULL)
-    message(
-      crayon::red(
-        cli::symbol$cross,
-        "Enhanced debugging: OFF",
-        cli::symbol$arrow_right,
-        "getOption('error') is NULL"
-        )
-      )
+    message("Enhanced debugging: OFF >> getOption('error') is NULL")
   }
 }
-.customCommands$dt <- structure("", class = "detacher_class")
-.customCommands$print.detacher_class <- function(detacher) {
-  message(
-    crayon::green(cli::symbol$tick, "Detaching '.customCommands' from search path")
-  )
+
+.customCommands$detacher <- structure("", class = "detacher_class")
+.customCommands$print.detacher_class <- function(.dt) {
+  message("Detaching '.customCommands' from search path")
   detach(".customCommands", unload = TRUE, force = TRUE, character = TRUE)
 }
+
 .customCommands$restart <- structure("", class = "restart_class")
-.customCommands$print.restart_class <- function(rst) {
-  if ( !is.null(tryCatch(usethis::proj_get(), error = function(e) NULL))) {
-    rstudioapi::openProject(usethis::proj_get())
-  } else {
-    message(
-      crayon::red(
-        cli::symbol$cross,
-        "Cannot restart from here -> not inside an RStudio project!"
-        )
-      )
-  }
+.customCommands$print.restart_class <- function(.rst) {
+    rstudioapi::restartSession()
 }
 
 .customCommands$devmode <- local({
@@ -129,5 +107,6 @@ if ( interactive() ) {
   }
 })
 
+.customCommands$.repo <- c(CRAN = "http://cran.rstudio.com") # CRAN mirror
 attach(.customCommands)
 rm(.customCommands)

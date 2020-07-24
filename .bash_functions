@@ -2,6 +2,20 @@
 # Stu's Bash Functions
 # --------------------- #
 
+VIMgrep() {
+  PATTERN=$1
+  ret=$(grep -r --color=always --include='*.R' $PATTERN ./)
+  if [ -z "$2" ]; then
+    echo $ret
+  elif [ $2 = "open" ]; then
+    echo "Opening VIM"
+    vim $(grep -lr --include='*.R' $PATTERN ./)
+  else
+    echo "Options for $2 are: 'open' or ''"
+  fi
+}
+
+
 git_tag_diff() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
@@ -230,66 +244,6 @@ unmount_drive(){
 }
 
 
-
-create_ss_header() {
-  pkgver=$(grep "Version: " ~/SomaPackages/SomaGlobals/DESCRIPTION | sed -e 's/Version: //')
-  Rver=$(Rscript --vanilla -e "R.version.string" | sed -e 's/\[1\] //')
-  Rver=$(echo $Rver | sed -e 's/\"//g')
-  nick=$(Rscript --vanilla -e "R.version[['nickname']]" | sed -e 's/\[1\] //')
-  nick=$(echo $nick | sed -e 's/\"//g')
-  system=$(uname -a)
-  echo "#############################################" > tmp.txt
-  echo "#  Run on SomaR-$pkgver" >> tmp.txt
-  echo "#  $Rver ($nick)" >> tmp.txt
-  echo "#  $system" >> tmp.txt
-  echo "#############################################" >> tmp.txt
-}
-
-make_ss_folder(){
-  if [ -d $1 ]; then
-    echo "Directory already exists!"
-    return 1
-  fi
-
-  mkdir -p $1/{data/meta,tables,plots,reports}
-  create.ss.header
-  cat tmp.txt ~/soma_sciences/func.R > $1/func.R
-  rm tmp.txt
-  #cp ~/soma_sciences/func.R $1
-  touch $1/analysis.driver.R
-  echo "* Done creating: $1"
-}
-
-
-sqs_template() {
-  if [ $# == 1 ]; then
-    svn co $SVN_PATH/BioInformatics/Latex/SomaSciences/SQS/trunk $1
-  else
-    svn co $SVN_PATH/BioInformatics/Latex/SomaSciences/SQS/trunk .
-  fi
-}
-
-
-phone(){
-  grep -i "$1" ~/Documents/HR/phone_list.txt
-}
-
-
-format_phone_file() {
-  sed 's/ //g' $1 > $2
-  sed -i '/^[^0-9A-Za-z\\-]*$/d' $2
-  sed -i 's/[ \t\r]*$//' $2      # rm tabs, spaces, \r at end of lines
-  sed -i 's/\r//' $2
-  sed -i '/^[CI]$/d' $2
-  sed -i '/^Name$/d' $2
-  sed -i '/^Extension$/d' $2
-  sed -i '/^SomaLogic/d' $2
-  sed -i '/^Boulder/d' $2
-  sed -i 's/^\([A-Za-z]*\)\(C\)\([0-9]\{3\}\)/\1: \3/' $2   # zap long-distance using "C" string
-  sed -i '/^[A-Za-z\\-]*$/ N; /^[A-Za-z\\-]*\n[0-9\\-]*/ s/\n/: /' $2
-}
-
-
 lszip(){
   for i in $@; do unzip -l $i; done
 }
@@ -392,24 +346,11 @@ untar(){
 }
 
 
-
 cleantex() {
   filename=`basename $1 tex`
   echo $filename
   mv -f "${filename}log" "${filename}aux" "${filename}out" "${filename}blg" "${filename}bbl" "${filename}toc" /tmp
 }
-
-
-
-check_pkg() {
-  $R_SOMA_DEV/utils/check_pkg.sh $1
-}
-
-
-test_pkg() {
-  $R_SOMA_DEV/utils/test_pkg.sh $1
-}
-
 
 
 slidy() {
@@ -423,7 +364,7 @@ slidy() {
 }
 
 
-setup_slidy(){
+setup_slidy() {
   if [ -d $1 ]; then
     echo "Directory already exists!"
     return 0
@@ -437,8 +378,6 @@ setup_slidy(){
 }
 
 
-
-
 format_R_style() {
   for j in $@; do
     sed -i 's/\t/   /g' $j          # tabs -> spaces
@@ -450,430 +389,3 @@ format_R_style() {
   done
 }
 
-
-
-
-
-
-###########################
-#  deprecated old stuff
-###########################
-add_git_keywords() {
-   for j in $@; do
-      sed -i 's/\$Revision\$/$Id$/' $j
-      sed -i 's/LastChanged//' $j
-      sed -i '/URL/d' $j
-      sed -i 's/saved/created/' $j
-   done
-}
-
-
-
-
-
-
-
-
-
-
-#####
-###########################
-#  Mike's old stuff
-###########################
-#####
-
-#find_exp() {
-#   ~/tools/scripts/database/recent_experiments.py -n 2000 | grep $1
-#}
-#
-#kill_suspended() {
-#   kill -9 `jobs -l | awk '{print $2}'`
-#}
-#
-#findRall() {
-#   grep -n "$1" ~/scripts/R/*.R
-#}
-#
-#my_email() {
-#   sendemail -s elm.sladmin.com -bcc sfield@somalogic.com -f sfield@somalogic.com -t ${1}@somalogic.com
-#}
-#
-#move_plots() {
-#   rm /media/H/dump/plots/*
-#   cp $1* /media/H/dump/plots
-#}
-#
-#img_view() {
-#   gwenview $1 2> /dev/null &
-#}
-#
-#convert_todo() {
-# grep class1 $1 |  sed "s/'//g" | sed "s/:/=/g" | sed "s/, variable.*/)/g" | sed "s/{/create.training.data(, /" | sed "s/\[\[/list(c(/g" | sed "s/\]\]/))/g" | sed "s/\],\[/),c(/g"
-#}
-#
-#garmin.file() {
-#   gpsbabel -t -i garmin -f usb: -o gtrnctr -F $i
-#}
-#
-#file_counts() {
-#   for dir in `find $1 -type d`; do
-#      lines=`find $dir -type f | wc -l`
-#      if [ $dir == $1 ]; then
-#         echo "$lines $dir"
-#      else
-#         file_counts $dir
-#      fi
-#   done
-#}
-#
-#
-#
-#contains () {
-#   if [ $# -ne 2 ]; then
-#      echo "Returns all files that contain a particular string"
-#      echo "USAGE: contains 'str' 'files' "
-#      echo "EX: contains blah '*.txt'    "#
-#      return
-#   fi
-#   str=$1
-#   files=$2
-#
-#   for file in `ls $files`; do
-#      lines=`grep $str $file | wc -l`
-#      if [ $lines -gt 0 ]; then
-#         echo $file
-#      fi
-#   done
-#
-#
-#}
-#
-#size_less () {
-#   if [ $# -ne 2 ]; then
-#      echo "USAGE: size_less 'files' value"
-#      echo "EX: size_less '*.txt' 2   # returns all txt files with <2 size"
-#      return
-#   fi
-#   files=$1
-#   val=$2
-#
-#
-#   for file in `ls $files`; do
-#      size=`ls -s $file | awk '{print $1}'`
-#      if [ $size -lt $val ]; then
-#         echo $file
-#      fi
-#   done
-#}
-#
-#lines_less () {
-#   if [ $# -ne 2 ]; then
-#      echo "USAGE: lines_less 'files' value"
-#      echo "EX: lines_less '*.txt' 2   # returns all txt files with <2 lines"
-#      return
-#   fi
-#   files=$1
-#   val=$2
-#
-#
-#   for file in `ls $files`; do
-#      lines=`cat $file | wc -l`
-#      if [ $lines -lt $val ]; then
-#         echo $file
-#      fi
-#   done
-#
-#}
-#
-#lines_greater () {
-#   if [ $# -ne 2 ]; then
-#      echo "USAGE: lines_greater 'files' value"
-#      echo "EX: lines_greater '*.txt' 2   # returns all txt files with >2 lines"
-#      return
-#   fi
-#   files=$1
-#   val=$2
-#
-#
-#   for file in `ls $files`; do
-#      lines=`cat $file | wc -l`
-#      if [ $lines -gt $val ]; then
-#         echo $file
-#      fi
-#   done
-#
-#}
-#
-#edge_count() {
-#   file=$1
-#   args=$@
-#   count=-1
-#   for arg in $args; do
-#      if [ $count -ge 0 ]; then
-#         genes[$count]=$arg
-#      fi
-#      count=$[ $count+1 ]
-#   done
-#   num_genes=$[ $# - 1 ]
-#   total=0
-#   for i in `seq 0 $[$num_genes-1]`; do
-#      for j in `seq 0 $[$num_genes-1]`; do
-#      #for j in `seq $[ $i+1 ] $[ $num_genes -1 ]`; do
-#         lines=`grep -E "^${genes[$i]}   ${genes[$j]}   " $file | wc -l`
-#         if [ $lines -gt 0 ]; then
-#            echo "${genes[$i]}   ${genes[$j]}: $lines"
-#         fi
-#      done
-#   done
-#
-#
-#
-#}
-#
-#
-#density () {
-#   if [ $# -eq 0 ]; then
-#      echo "USAGE: density filename gene_list"
-#      return
-#   fi
-#   file=$1
-#   args=$@
-#   count=-1
-#   for arg in $args; do
-#      if [ $count -ge 0 ]; then
-#         genes[$count]=$arg
-#      fi
-#      count=$[ $count+1 ]
-#   done
-#   num_genes=$[ $# - 1 ]
-#   total=0
-#   for i in `seq 0 $[$num_genes-1]`; do
-#      for j in `seq 0 $[$num_genes-1]`; do
-#      #for j in `seq $[ $i+1 ] $[ $num_genes -1 ]`; do
-#         lines=`grep -E "^${genes[$i]}   ${genes[$j]}   " $file | wc -l`
-#         if [ $lines == 1 ]; then
-#            total=`expr $total + 1`
-#            #grep -E "^${genes[$i]}   ${genes[$j]}   " $file
-#         else
-#            if [ $lines -gt 1 ]; then
-#               echo "Multiple edges found"
-#               grep -E "^${genes[$i]}   ${genes[$j]}   " $file
-#               return
-#            fi
-#         fi
-#      done
-#   done
-#   total_edges=`calc ${num_genes}*$[ ${num_genes}-1 ]/2`
-#   val=`calc ${total}/${total_edges}`
-#   echo -e "$file\t$val"
-#}
-#
-#send_temp() {
-#   if [ $# -eq 0 ]; then
-#      echo "USAGE: send_temp filename"
-#      return
-#   fi
-#   cp $@ ~/temp
-#}
-#
-#
-#file_split() {
-#   if [ $# -eq 0 ]; then
-#      echo "USAGE: ./file_split filename pieces"
-#      return
-#   fi
-#   filename=$1
-#   pieces=$2
-#   total_lines=`cat $filename | wc -l`
-#   lines=$[ $total_lines/$pieces+1 ]
-#   split -l $lines $filename ${filename}_
-#}
-#
-#count_lines() {
-#   if [ $# -eq 0 ]; then
-#      echo "USAGE: count_lines grep_str filename "
-#      return
-#   fi
-#   grep $1 $2 | wc -l
-#}
-#
-#
-#
-#
-#
-#graph_links() {
-#   if [ $# -eq 0 ]; then
-#      echo "USAGE: ./graph_links dataset_list dataset_path"
-#      return
-#   fi
-#   list=$1
-#   path=$2
-#   lines=`cat $list | wc -l`
-#   for  i in `seq 1 $lines`; do ln -s $path`gl $i $list`.p01.sig.top2 dataset$i.sig.top2; done
-#}
-#dataset_links() {
-#   if [ $# -eq 0 ]; then
-#      echo "USAGE: ./dataset_links dataset_list dataset_path"
-#      return
-#   fi
-#   list=$1
-#   path=$2
-#   name=$3
-#   lines=`cat $list | wc -l`
-#   for  i in `seq 1 $lines`; do ln -s $path`gl $i $list`.exp4 ${name}dataset$i; done
-#}
-#
-#
-#
-#move_output() {
-#   mkdir ~/outputs/`date -Idate`/
-#   mv ~/*.pbs.o* ~/outputs/`date -Idate`/
-#}
-#
-#
-#
-#count_jobs () {
-#   qstat | grep $1 | wc -l;
-#}
-#
-#qstat_look () {
-#   qstat | grep cmb | vi -
-#}
-#
-#
-#gl () {
-##   lines=`cat $2 | wc -l`
-#   if [ `head -n $1 $2 | wc -l` -lt $1 ]; then
-#      echo "Out of bounds on gl"
-#   else
-#      head -n $1 $2 | tail -1
-#   fi
-#}
-#
-#comp_run () {
-#   make.py $1; if [ $? == 0 ]; then $@; fi
-#}
-#
-#flt () {
-#   LHS=`echo $1 | sed 's/0*$//g'`
-#   RHS=`echo $2 | sed 's/0*$//g'`
-#
-#   max=`(echo $LHS ; echo $RHS) | sort -rn | head -1`
-#   if [ "$max" != "$LHS" ]; then
-#      echo TRUE
-#   else
-#      echo FALSE
-#   fi
-#}
-#
-#fgt () {
-#   flt $2 $1
-#}
-#
-#fle () {
-#   if [ $1 == $2 ]; then
-#      echo TRUE
-#   else
-#      flt $1 $2
-#   fi
-#}
-#fge () {
-#   if [ $1 == $2 ]; then
-#      echo TRUE
-#   else
-#      fgt $1 $2
-#   fi
-#}
-#
-#
-#wait_for_jobs () {
-#   if [ $1 ]; then
-#      file=$1
-#      jobs=`sed "s/.hpc-pbs.usc.edu//g" $1`
-#   else
-#      jobs=""
-#      while read data; do
-#         jobs="$jobs `echo $data | sed 's/.hpc-pbs.usc.edu//g'`"
-#      done
-#   fi
-#
-#   found="yes"
-#   while [ $found == "yes" ]; do
-#      found="no"
-#      qstat=`qstat -u $USER`
-#      for job in $jobs; do
-#         if [ `echo $qstat | grep $job | wc -l` -gt 0 ]; then
-#            found="yes"
-#            break
-#         fi
-#      done
-#      sleep 40
-#      date
-#   done
-#}
-#
-#qj () {
-#    n=`qstat cmb | grep $USER |  awk '{print $5}' | grep -c ^Q`
-#    echo $n jobs queued on cmb
-#}
-#
-#rj () {
-#    n=`qstat cmb | grep $USER |  awk '{print $5}' | grep -c ^R`
-#    echo $n jobs running on cmb
-#}
-#
-#qju () {
-#    n=`qstat cmb | grep $1 |  awk '{print $5}' | grep -c ^Q`
-#    echo $n jobs queued on cmb
-#}
-#
-#rju () {
-#    n=`qstat cmb | grep $1 |  awk '{print $5}' | grep -c ^R`
-#    echo $n jobs running on cmb
-#}
-#
-#qs () {
-#    qstat -a cmb | grep $USER
-#}
-#
-#qarj() {
-#    qj
-#    rj
-#}
-#
-#qarju() {
-#    qju $1
-#    rju $1
-#}
-#
-#qlist() {
-#    for x in `qstat | grep cmb |  awk '{print $3}' | sort | uniq`; do
-#      queued=`qstat cmb | grep $x |  awk '{print $5}' | grep -c ^Q`
-#      running=`qstat cmb | grep $x |  awk '{print $5}' | grep -c ^R`
-#      echo -e "$x:\t$running ($queued)"
-#   done
-#}
-#
-#
-#chigh() {
-#    OVLPSDIR=$HOME/Research/om/data/cluster/Z.mays/SwaI/2.1million
-#    last=`ls $OVLPSDIR | awk -F . '{print $2}' | sort -n | tail -1`
-#    echo $last
-#}
-#
-#clow() {
-#    OVLPSDIR=$HOME/Research/om/data/cluster/Z.mays/SwaI/2.1million
-#    last=`ls $OVLPSDIR | awk -F . '{print $2}' | sort -n | head -1`
-#    echo $last
-#}
-#
-#ccount() {
-#    OVLPSDIR=$HOME/Research/om/data/cluster/Z.mays/SwaI/2.1million
-#    echo `ls $OVLPSDIR | wc -l`
-#}
-#
-#
-#countseq() {
-#    grep -c "^>" $1
-#}
-#

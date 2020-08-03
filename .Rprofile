@@ -23,7 +23,7 @@ options(
   devtools.desc.author       = "person('Stu', 'Field', email = 'sfield@somalogic.com', role = c('aut', 'cre'))",
   devtools.desc.license      = "GPL-3",
   covr.gcov                  = Sys.which("gcov"),
-  repos                      = c(rspm_latest = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/latest/"),
+  repos                      = c(rspm = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/782/"),
   reprex.si                  = TRUE,
   reprex.advertise           = TRUE,
   reprex.tidyverse_quiet     = TRUE,
@@ -107,6 +107,7 @@ if ( interactive() ) {
   }
 })
 
-.customCommands$.repo <- c(CRAN = "http://cran.rstudio.com") # CRAN mirror
+.customCommands$.repo  <- c(CRAN = "http://cran.rstudio.com") # CRAN mirror
+.customCommands$.check <- devtools::check
 attach(.customCommands)
 rm(.customCommands)

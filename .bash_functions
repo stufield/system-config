@@ -50,7 +50,9 @@ git_tags_cur() {
       if [ -z "$TAG" ]; then
         echo "\033[33m>\033[0m \033[32m$i\033[0m ... \033[33mNo tags\033[0m"
       else
-        echo "\033[33m>\033[0m \033[32m$i\033[0m ... \033[33m$TAG\033[0m"
+        COMMIT=$(git rev-list -n 1 $TAG)
+        COMMIT=$(git rev-parse --short $COMMIT)
+        echo "\033[33m>\033[0m \033[32m$i\033[0m ... \033[33m$TAG\033[0m ... \033[034m$COMMIT\033[0m"
       fi
     else
       echo "\033[33m>\033[0m \033[31mSkipping $i\033[0m ... not a Git repo"

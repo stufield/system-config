@@ -1,7 +1,7 @@
 # --------------------------------------------------- #
 # General use suggested .Rprofile for env setup
 # Include additional functionality as required
-# 2020-06-28
+# 2020-08-13
 # Stu Field, Bioinformatics, SomaLogic, Inc.
 # --------------------------------------------------- #
 
@@ -38,7 +38,14 @@ options(
 ## load packages immediately
 # ------------------------- #
 if ( interactive() ) {
-  options(prompt = "\033[34m> \033[39m")
+  if ( requireNamespace("prompt", quietly = TRUE) ) {
+    git_prompt <- function(...) {
+      br <- paste0("\033[34m", prompt::git_branch(), "\033[39m")
+      paste0("[", br, "]", " \033[31m> \033[39m")
+    }
+    prompt::set_prompt(git_prompt)
+    rm(git_prompt)
+  }
   #suppressMessages(library(reprex))
   #suppressMessages(library(devtools))
   #suppressMessages(library(usethis))

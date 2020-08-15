@@ -1,33 +1,35 @@
 [user]
-  name = Stu Field
-  email = stu.g.field@gmail.com
+	name = Stu Field
+	email = stu.g.field@gmail.com
 [core]
-  excludefile = /Users/sfield/.gitignore_global
-  excludesfile = /Users/sfield/.gitignore_global
-  editor = vim
+	excludefile = /Users/sfield/.gitignore_global
+	excludesfile = /Users/sfield/.gitignore_global
+	editor = vim
 [color]
-  ui = true
+	ui = true
 [format]
-  pretty = fuller
+	pretty = fuller
 [merge]
-  tool = vimdiff
-  conflictstyle = merge
-# conflictstyle = diff3
+	tool = vimdiff
+	conflictstyle = merge
+	# conflictstyle = diff3
 [diff]
-  renames = copies
-  renamelimit = 0
-  prompt = false
-  tool = vimdiff
+	renames = copies
+	renamelimit = 0
+	prompt = false
+	tool = vimdiff
 [alias]
-  taglog = log --pretty=oneline --decorate --tags --no-walk
-  uncommit = reset --soft HEAD~1
-  plog = log --graph --pretty=format:'%h -%d %s %n' --abbrev-commit --date=relative --branches
+	taglog = log --pretty=oneline --decorate --tags --no-walk
+	uncommit = reset --soft HEAD~1
+	plog = log --graph --pretty=format:'%h -%d %s %n' --abbrev-commit --date=relative --branches
+	subupdate = submodule update --remote --merge
+	subpush = push --recurse-submodules=on-demand
 [pager]
-  diff = false
-  log = false
-  tag = false
-  branch = false
+	diff = false
+	log = false
+	tag = false
+	branch = false
 [push]
-  default = current
+	default = current
 [uploadpack]
-  allowFilter = true
+	allowFilter = true

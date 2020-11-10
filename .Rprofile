@@ -5,9 +5,9 @@
 # Stu Field, Bioinformatics, SomaLogic, Inc.
 # --------------------------------------------------- #
 
-# ------------------------- #
-## session options
-# ------------------------- #
+# ---------------- #
+# session options
+# ---------------- #
 options(
   showWarnCalls              = TRUE,
   showErrorCalls             = TRUE,
@@ -53,68 +53,74 @@ if ( interactive() ) {
   #library(glmnet)
 }
 
-# Set up custom debugging environment
-.customCommands <- new.env()
-.customCommands$bugger <- structure("", class = "bugger_class")
-.customCommands$print.bugger_class <- function(.bug) {
-  if ( !identical(as.character(getOption("error")), "rlang::entrace") ) {
-    options(error = quote(rlang::entrace()),
-            rlang__backtrace_on_error = "full")  # or "collapse"
-    message(
-      "Enhanced debugging: ON >> getOption('error') set to rlang::entrace()"
-    )
-  } else {
-    options(error = NULL)
-    message("Enhanced debugging: OFF >> getOption('error') is NULL")
-  }
-}
-
-.customCommands$detacher <- structure("", class = "detacher_class")
-.customCommands$print.detacher_class <- function(.dt) {
-  message("Detaching '.customCommands' from search path")
-  detach(".customCommands", unload = TRUE, force = TRUE, character = TRUE)
-}
-
-.customCommands$restart <- structure("", class = "restart_class")
-.customCommands$print.restart_class <- function(.rst) {
-    rstudioapi::restartSession()
-}
-
-.customCommands$devmode <- local({
-  .prompt <- NULL
-  function(on = NULL, path = getOption("devtools.path")) {
-    lib_paths <- .libPaths()
-    path <- normalizePath(path, winslash = "/", mustWork = FALSE)
-    if (is.null(on)) {
-      on <- !(path %in% lib_paths)
-    }
-    if (on) {
-      if (!file.exists(path)) {
-        dir.create(path, recursive = TRUE, showWarnings = FALSE)
-      }
-      if (!file.exists(path)) {
-        stop("Failed to create ", path, call. = FALSE)
-      }
-      message("Dev mode: ON")
-      options(dev_path = path)
-      if (is.null(.prompt)) {
-        .prompt <<- getOption("prompt")
-      }
-      options(prompt = paste("d> "))
-      .libPaths(c(path, lib_paths))
+local({
+  # Set up custom debugging environment
+  .customCommands <- new.env()
+  .customCommands$bugger <- structure("", class = "bugger_class")
+  .customCommands$print.bugger_class <- function(.bug) {
+    if ( !identical(as.character(getOption("error")), "rlang::entrace") ) {
+      options(error = quote(rlang::entrace()),
+              rlang__backtrace_on_error = "full")  # or "collapse"
+      message(
+        "Enhanced debugging: ON >> getOption('error') set to rlang::entrace()"
+      )
     } else {
-      message("Dev mode: OFF")
-      options(dev_path = NULL)
-      if (!is.null(.prompt)) {
-        options(prompt = .prompt)
-      }
-      .prompt <<- NULL
-      .libPaths(setdiff(lib_paths, path))
+      options(error = NULL)
+      message("Enhanced debugging: OFF >> getOption('error') is NULL")
     }
   }
-})
 
-.customCommands$.repo  <- c(CRAN = "http://cran.rstudio.com") # CRAN mirror
-.customCommands$.check <- devtools::check
-attach(.customCommands)
-rm(.customCommands)
+  .customCommands$detacher <- structure("", class = "detacher_class")
+  .customCommands$print.detacher_class <- function(.dt) {
+    message("Detaching '.customCommands' from search path")
+    detach(".customCommands", unload = TRUE, force = TRUE, character = TRUE)
+  }
+
+  .customCommands$restart <- structure("", class = "restart_class")
+  .customCommands$print.restart_class <- function(.rst) {
+      rstudioapi::restartSession()
+  }
+
+  .customCommands$devmode <- local({
+    .prompt <- NULL
+    function(on = NULL, path = getOption("devtools.path")) {
+      lib_paths <- .libPaths()
+      path <- normalizePath(path, winslash = "/", mustWork = FALSE)
+      if (is.null(on)) {
+        on <- !(path %in% lib_paths)
+      }
+      if (on) {
+        if (!file.exists(path)) {
+          dir.create(path, recursive = TRUE, showWarnings = FALSE)
+        }
+        if (!file.exists(path)) {
+          stop("Failed to create ", path, call. = FALSE)
+        }
+        message("Dev mode: ON")
+        options(dev_path = path)
+        if (is.null(.prompt)) {
+          .prompt <<- getOption("prompt")
+        }
+        options(prompt = paste("d> "))
+        .libPaths(c(path, lib_paths))
+      } else {
+        message("Dev mode: OFF")
+        options(dev_path = NULL)
+        if (!is.null(.prompt)) {
+          options(prompt = .prompt)
+        }
+        .prompt <<- NULL
+        .libPaths(setdiff(lib_paths, path))
+      }
+    }
+  })
+
+  .customCommands$.repo  <- c(CRAN = "http://cran.rstudio.com") # CRAN mirror
+  .customCommands$.check <- function(jenkins = FALSE) {
+    if (jenkins)
+      devtools::check(env_vars = c(ON_JENKINS = 'true', NOT_CRAN = 'true'))
+    else
+      devtools::check()
+  }
+  attach(.customCommands)
+})

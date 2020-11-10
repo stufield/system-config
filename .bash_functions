@@ -16,6 +16,40 @@ VIMgrep() {
 }
 
 
+git_commit_cur() {
+  CURPWD=$PWD
+  cd $R_SOMA_DEV
+  echo "\033[31mFetching latest commit SHA from master branch:\033[0m"
+  printf "\033[32m%-25s\033[33m Commit\033[0m\n" 'Package'
+  pkgs=(
+    palantir
+    SMAdata
+    SomaBiomarkers
+    SomaClassify
+    SomaCluster
+    SomaDB
+    SomaFeatureSelect
+    SomaGlobals
+    SomaMixedEffects
+    SMA
+    SomaNormalization
+    SomaPCA
+    SomaPipeline
+    SomaPlot
+    SomaPlyr
+    SomaReadr
+    SomaStabilitySelection
+    SomaSurvival
+    somaverse
+  )
+  for i in ${pkgs[@]}; do 
+    cd $i
+    printf "\033[34m%-25s\033[0m $(git rev-parse master | cut -c -11)\n" $i
+    cd ..
+  done
+  cd $CURPWD
+}
+
 git_tag_diff() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
@@ -81,6 +115,11 @@ git_branch_cur() {
   cd $CURPWD
 }
 
+clean_docker() {
+  docker stop edge_shiny_1 edge_jupyter_1
+  docker rm -f edge_shiny_1 edge_jupyter_1
+  docker image prune -a
+}
 
 nuke_docker() {
   while true; do
@@ -107,10 +146,28 @@ render_README() {
 
 update_READMEs() {
   CURPWD=$PWD
+  PKGS=(
+    SomaReadr
+    SomaGlobals
+    SomaPlyr
+    SomaPlot
+    SomaClassify
+    SomaSurvival
+    SomaBiomarkers
+    SomaMixedEffects
+    SomaPCA
+    SomaNormalization
+    SomaStabilitySelection
+    SomaPipeline
+    SomaDB
+    palantir
+    somaverse
+  )
   cd $R_SOMA_DEV
-  for i in {Soma*,somaverse}; do
+  for i in ${PKGS[@]}; do
     echo "$i:"
-    cd $i && render_README && cd $R_SOMA_DEV
+    cd $i && render_README && rm README.html
+    cd ..
   done
   cd $CURPWD
 }

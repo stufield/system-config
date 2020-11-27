@@ -142,6 +142,7 @@ nuke_docker() {
 render_README() {
   echo "Rendering README.Rmd"
   Rscript --vanilla -e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/MacOS/pandoc'); rmarkdown::render('README.Rmd', quiet = TRUE)"
+  rm -f README.html
 }
 
 update_READMEs() {
@@ -166,7 +167,7 @@ update_READMEs() {
   cd $R_SOMA_DEV
   for i in ${PKGS[@]}; do
     echo "$i:"
-    cd $i && render_README && rm README.html
+    cd $i && render_README
     cd ..
   done
   cd $CURPWD

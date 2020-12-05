@@ -24,6 +24,8 @@
 	plog = log --graph --pretty=format:'%h -%d %s %n' --abbrev-commit --date=relative --branches
 	subupdate = submodule update --remote --merge
 	subpush = push --recurse-submodules=on-demand
+  author = config user.name \"Stu Field\"
+  email = config user.email \"sfield@somalogic.com\"
 [pager]
 	diff = false
 	log = false

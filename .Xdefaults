@@ -1,0 +1,13 @@
+aterm*loginShell:true
+aterm*saveLines:32767
+aterm*background:Black
+aterm*foreground:White
+aterm*transparent:true
+aterm*transpscrollbar:true
+aterm*shading:80
+URxvt*font: xft:Monospace:pixelsize=14
+URxvt*saveLines:32767
+URxvt*background:Black
+URxvt*foreground:white
+URxvt*transparent:true
+URxvt*shading:80

@@ -67,7 +67,7 @@ export TERM="screen-256color"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -133,7 +133,7 @@ export R_LIBS_USER=$HOME/r_libs
 export R_HISTSIZE=1000000
 export LOCAL_UID=`id -u`
 export PYTHONPATH=$HOME/scripts/modules
-export JAVA_HOME=/usr/bin/java
+#export JAVA_HOME=/usr/bin/java
 
 # ------------------
 # Oracle Variables

@@ -23,7 +23,7 @@ options(
   devtools.desc.author       = "person('Stu', 'Field', email = 'sfield@somalogic.com', role = c('aut', 'cre'))",
   devtools.desc.license      = "GPL-3",
   covr.gcov                  = Sys.which("gcov"),
-  repos                      = c(rspm = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/782/"),
+  repos                      = c(rspm = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/1005/"),
   reprex.si                  = TRUE,
   reprex.advertise           = TRUE,
   reprex.tidyverse_quiet     = TRUE,
@@ -116,9 +116,9 @@ local({
   })
 
   .customCommands$.repo  <- c(CRAN = "http://cran.rstudio.com") # CRAN mirror
-  .customCommands$.check <- function(jenkins = FALSE) {
+  .customCommands$.check <- function(jenkins = FALSE, ...) {
     if (jenkins)
-      devtools::check(env_vars = c(ON_JENKINS = 'true', NOT_CRAN = 'true'))
+      devtools::check(env_vars = c(ON_JENKINS = 'true', NOT_CRAN = 'true'), ...)
     else
       devtools::check()
   }

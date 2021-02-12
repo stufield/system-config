@@ -44,7 +44,7 @@ A Stu specific repository of system level files:
 -------------
 
 
-### `.Rprofile`: Debugger mode
+### Debugger mode (`.Rprofile`)
 Allows for user friendly simplified call stack traces with a simple toggle:
 
 ```{r, error = TRUE, eval = FALSE}
@@ -66,13 +66,13 @@ f(pi)       # not very informative
 
 traceback() # traceback is ok
 
-# Turn on debugger mode
-bug
+# Turn on de-bugger mode
+bugger
 
 f(pi)       # automatically prints the stack trace as a tree
 
-# Turn off debugger mode
-bug
+# Turn off de-bugger mode
+bugger
 ```
 
 * `rlang` [https://www.tidyverse.org/articles/2019/01/rlang-0-3-1/](https://www.tidyverse.org/articles/2019/01/rlang-0-3-1/)

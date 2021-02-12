@@ -24,17 +24,12 @@ git_commit_cur() {
   pkgs=(
     palantir
     SMAdata
-    SomaBiomarkers
+    SomaModelAssessment
     SomaClassify
-    SomaCluster
-    SomaDB
-    SomaFeatureSelect
     SomaGlobals
     SomaMixedEffects
-    SMA
     SomaNormalization
     SomaPCA
-    SomaPipeline
     SomaPlot
     SomaPlyr
     SomaReadr
@@ -154,13 +149,10 @@ update_READMEs() {
     SomaPlot
     SomaClassify
     SomaSurvival
-    SomaBiomarkers
     SomaMixedEffects
     SomaPCA
     SomaNormalization
     SomaStabilitySelection
-    SomaPipeline
-    SomaDB
     palantir
     somaverse
   )

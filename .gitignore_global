@@ -1,21 +1,22 @@
-# Testing Directory
-Test
-old_code
-
-# no vi tmp files
-*.s[a-w][a-z]
+# no VIM backup files
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+*.add.spl
 
 # no tex tmp files
 *.aux
 *.out
+*.log
 
-# no svn 
+# no SVN files 
 .svn
 
 # no Mac files
 .DS_Store
 
-# history files
+# R history files
 .Rhistory
 .Rapp.history
 

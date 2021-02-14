@@ -35,7 +35,7 @@ RPS1='$(vi_mode_prompt_info)'
 RPS2=$RPS1
 
 # Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
-export KEYTIMEOUT=1
+export KEYTIMEOUT=5
 
 
 
@@ -133,7 +133,6 @@ export R_LIBS_USER=$HOME/r_libs
 export R_HISTSIZE=1000000
 export LOCAL_UID=`id -u`
 export PYTHONPATH=$HOME/scripts/modules
-#export JAVA_HOME=/usr/bin/java
 
 # ------------------
 # Oracle Variables

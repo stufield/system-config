@@ -8,7 +8,8 @@
         ],
         "tabSet1": [
             "Plots",
-            "Presentation"
+            "Presentation",
+            "Tutorial"
         ],
         "tabSet2": [
             "Environment",
@@ -46,7 +47,6 @@
     "show_hidden_files": true,
     "wrap_tab_navigation": false,
     "git_diff_ignore_whitespace": true,
-    "new_proj_git_init": true,
     "save_workspace": "never",
     "always_save_history": false,
     "remove_history_duplicates": true,

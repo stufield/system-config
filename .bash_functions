@@ -3,16 +3,12 @@
 # --------------------- #
 
 vigrep() {
-  PATTERN=$1
-  ret=$(grep -r --color=always --include='*.R' $PATTERN ./)
-  if [ -z "$2" ]; then
-    echo $ret
-  elif [ $2 = "open" ]; then
-    echo "Opening VIM"
-    vim $(grep -lr --include='*.R' $PATTERN ./)
-  else
-    echo "Options for $2 are: 'open' or ''"
-  fi
+  # -o flag for opening files
+  case $1 in
+    -o) echo "Opening VIM" 
+        vim -O $(grep -lr --include='*.R' $2 .); shift;;
+    *)  grep -r --color=always --include='*.R' $1 .; shift;;
+  esac
 }
 
 clean_docker() {

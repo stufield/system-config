@@ -40,19 +40,19 @@ git_tag_diff() {
   cd $R_SOMA_DEV
   for i in `ls -d */`; do
     cd $i
+    DIR=${i%/}
     if [ -d ".git" ]; then
       TAG1=`git describe --abbrev=0 --tags $(git rev-list --tags --skip=0 --max-count=1)` > /dev/null 2>&1
       TAG0=`git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1)` > /dev/null 2>&1
       if [ -z "$TAG0" ]; then
-        echo "\033[33m>\033[0m \033[31m$i\033[0m ... \033[33mNo Tags ...\033[0m"
+        echo "\033[33m>\033[0m \033[31m$DIR\033[0m ... \033[33mNo Tags ...\033[0m"
       else
-        echo "\033[33m>\033[0m \033[31m$i\033[0m ... \033[33m$TAG0 -> $TAG1\033[0m"
         COMMITS=`git rev-list $TAG1 ^$TAG0 --count`
         STAT=`git diff --shortstat $TAG1 ^$TAG0 ':(exclude)*.html'`
-        echo "$i, $COMMITS commits,$STAT"
+        echo "$DIR, $TAG0 -> $TAG1, $COMMITS commits,$STAT"
       fi
     else
-      echo "\033[33m>\033[0m \033[31m$i\033[0m ... \033[33mNot a Git repo ...\033[0m"
+      echo "\033[33m>\033[0m \033[31m$DIR\033[0m ... \033[33mNot a Git repo ...\033[0m"
     fi
     cd $OLDPWD
   done

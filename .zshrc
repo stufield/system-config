@@ -2,7 +2,8 @@
 export PATH=$HOME/bin:/usr/local/bin:/Library/TeX/texbin:$PATH
 
 export ZSH=$HOME/.oh-my-zsh
-umask 022
+#umask 022
+umask o+rw
 
 # ------------
 # VIM

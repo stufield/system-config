@@ -62,7 +62,7 @@ export TERM="screen-256color"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=14
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -93,7 +93,10 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-prompt github gitfast gitignore vi-mode bundler rake textmate lighthouse zsh-autosuggestions)
+plugins=(git git-prompt vi-mode bundler rake textmate lighthouse zsh-autosuggestions)
+
+bindkey '^ ' autosuggest-accept     # accept suggestion: Crtl-space
+#bindkey '^M' autosuggest-execute   # execute suggestion: Enter
 
 # -----------------------------
 # source oh-my-zsh now this 
@@ -157,8 +160,6 @@ fi
 
 stty quit ""
 
-bindkey '^l' autosuggest-accept     # accept suggestion: Crtl-L
-#bindkey '^M' autosuggest-execute   # execute suggestion: Enter
 source $HOME/.bash_functions
 
 echo "\033[32m\xE2\x9C\x94\033[0m Welcome to \033[31mZSH \033[33m... \033[34m$USER\033[0m"

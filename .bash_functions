@@ -19,7 +19,9 @@ clean_docker() {
 
 render_README() {
   echo "Rendering README.Rmd"
-  Rscript --vanilla -e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/MacOS/pandoc'); rmarkdown::render('README.Rmd', quiet = TRUE)"
+  Rscript --vanilla \
+    -e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/MacOS/pandoc')" \
+    -e "rmarkdown::render('README.Rmd', quiet = TRUE)"
   rm -f README.html
 }
 

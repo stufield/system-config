@@ -1,7 +1,7 @@
 # --------------------------------------------------- #
 # General use suggested .Rprofile for env setup
 # Include additional functionality as required
-# 2020-08-13
+# 2021-04-26
 # Stu Field, Bioinformatics, SomaLogic, Inc.
 # --------------------------------------------------- #
 
@@ -9,21 +9,21 @@
 # session options
 # ---------------- #
 options(
+  stringsAsFactors           = FALSE,
   showWarnCalls              = TRUE,
   showErrorCalls             = TRUE,
-  stringsAsFactors           = FALSE,
   warnPartialMatchArgs       = FALSE,
   warnPartialMatchDollar     = FALSE,
   warnPartialMatchAttr       = FALSE,
+  repos                      = c(rspm = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/1115/"),
   roxygen.comment            = "#' ",
-  max.print                  = 500,         # default 1000 too verbose
+  max.print                  = 250,         # default 1000 too verbose
   warn.length                = 8170,        # this is the max possible
   devtools.name              = "Stu Field",
   devtools.path              = "~/R-dev",
   devtools.desc.author       = "person('Stu', 'Field', email = 'sfield@somalogic.com', role = c('aut', 'cre'))",
-  devtools.desc.license      = "GPL-3",
+  devtools.desc.license      = "MIT",
   covr.gcov                  = Sys.which("gcov"),
-  repos                      = c(rspm = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/1005/"),
   reprex.si                  = TRUE,
   reprex.advertise           = TRUE,
   reprex.tidyverse_quiet     = TRUE,
@@ -34,9 +34,10 @@ options(
   reprex.highlight.font_size = 100,
   reprex.highlight.other     = "--line-numbers"
 )
-# ------------------------- #
-## load packages immediately
-# ------------------------- #
+
+# -------------- #
+# fancy prompt
+# -------------- #
 if ( interactive() ) {
   if ( requireNamespace("prompt", quietly = TRUE) ) {
     git_prompt <- function(...) {
@@ -46,41 +47,11 @@ if ( interactive() ) {
     prompt::set_prompt(git_prompt)
     rm(git_prompt)
   }
-  #suppressMessages(library(reprex))
-  #suppressMessages(library(devtools))
-  #suppressMessages(library(usethis))
-  #library(somaverse)
-  #library(glmnet)
 }
 
+# Special invisible commands
 local({
-  # Set up custom debugging environment
   .customCommands <- new.env()
-  .customCommands$bugger <- structure("", class = "bugger_class")
-  .customCommands$print.bugger_class <- function(.bug) {
-    if ( !identical(as.character(getOption("error")), "rlang::entrace") ) {
-      options(error = quote(rlang::entrace()),
-              rlang__backtrace_on_error = "full")  # or "collapse"
-      message(
-        "Enhanced debugging: ON >> getOption('error') set to rlang::entrace()"
-      )
-    } else {
-      options(error = NULL)
-      message("Enhanced debugging: OFF >> getOption('error') is NULL")
-    }
-  }
-
-  .customCommands$detacher <- structure("", class = "detacher_class")
-  .customCommands$print.detacher_class <- function(.dt) {
-    message("Detaching '.customCommands' from search path")
-    detach(".customCommands", unload = TRUE, force = TRUE, character = TRUE)
-  }
-
-  .customCommands$restart <- structure("", class = "restart_class")
-  .customCommands$print.restart_class <- function(.rst) {
-      rstudioapi::restartSession()
-  }
-
   .customCommands$devmode <- local({
     .prompt <- NULL
     function(on = NULL, path = getOption("devtools.path")) {
@@ -121,6 +92,10 @@ local({
       devtools::check(env_vars = c(ON_JENKINS = 'true', NOT_CRAN = 'true'), ...)
     else
       devtools::check()
+  }
+  .customCommands$detach_custom <- function() {
+    message("Detaching '.customCommands' from search path")
+    detach(".customCommands", unload = TRUE, force = TRUE, character = TRUE)
   }
   attach(.customCommands)
 })

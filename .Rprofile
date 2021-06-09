@@ -15,7 +15,7 @@ options(
   warnPartialMatchArgs       = FALSE,
   warnPartialMatchDollar     = FALSE,
   warnPartialMatchAttr       = FALSE,
-  repos                      = c(rspm = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/1115/"),
+  repos                      = c(rspm = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/1168/"),
   roxygen.comment            = "#' ",
   max.print                  = 250,         # default 1000 too verbose
   warn.length                = 8170,        # this is the max possible
@@ -42,7 +42,7 @@ if ( interactive() ) {
   if ( requireNamespace("prompt", quietly = TRUE) ) {
     git_prompt <- function(...) {
       br <- paste0("\033[34m", prompt::git_branch(), "\033[39m")
-      paste0("[", br, "]", " \033[31m> \033[39m")
+      paste("@", br, "\033[31m> \033[39m")
     }
     prompt::set_prompt(git_prompt)
     rm(git_prompt)

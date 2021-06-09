@@ -11,26 +11,16 @@ git_commit_cur() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
   echo "\033[31mFetching latest commit SHA from master branch:\033[0m"
-  printf "\033[32m%-25s\033[33m Commit\033[0m\n" 'Package'
-  pkgs=(
-    palantir
-    SomaModelAssessment
-    SomaClassify
-    SomaGlobals
-    SomaMixedEffects
-    SomaNormalization
-    SomaPCA
-    SomaPlot
-    SomaPlyr
-    SomaReadr
-    SomaStabilitySelection
-    SomaSurvival
-    somaverse
-  )
-  for i in ${pkgs[@]}; do 
+  printf "  \033[32m%-25s\033[33m Commit\033[0m\n" 'Package'
+  for i in `ls -d */`; do
     cd $i
-    printf "\033[34m%-25s\033[0m $(git rev-parse master | cut -c -11)\n" $i
-    cd ..
+    DIR=${i%/}
+    if [ -d ".git" ]; then
+      printf "\033[33m>\033[34m %-25s\033[0m $(git rev-parse master | cut -c -7)\n" $DIR
+    else
+      printf "\033[33m> \033[31m%-25s Not a Git repo ...\033[0m\n" $DIR
+    fi
+    cd $OLDPWD
   done
   cd $CURPWD
 }
@@ -52,7 +42,7 @@ git_tag_diff() {
         echo "$DIR, $TAG0 -> $TAG1, $COMMITS commits,$STAT"
       fi
     else
-      echo "\033[33m>\033[0m \033[31m$DIR\033[0m ... \033[33mNot a Git repo ...\033[0m"
+      echo "\033[33m> \033[31m$DIR\033[0m ... \033[33mNot a Git repo ...\033[0m"
     fi
     cd $OLDPWD
   done
@@ -64,17 +54,18 @@ git_tags_cur() {
   cd $R_SOMA_DEV
   for i in `ls -d */`; do
     cd $i
+    DIR=${i%/}
     if [ -d ".git" ]; then
       TAG=`git describe --abbrev=0 --tags` > /dev/null 2>&1
       if [ -z "$TAG" ]; then
-        echo "\033[33m>\033[0m \033[32m$i\033[0m ... \033[33mNo tags\033[0m"
+        printf "\033[33m> \033[32m%-25s \033[33mNo tags ...\033[0m\n" $DIR
       else
         COMMIT=$(git rev-list -n 1 $TAG)
         COMMIT=$(git rev-parse --short $COMMIT)
-        echo "\033[33m>\033[0m \033[32m$i\033[0m ... \033[33m$TAG\033[0m ... \033[034m$COMMIT\033[0m"
+        printf "\033[33m>\033[032m %-25s\033[0m \033[33m$TAG\033[0m (\033[034m$COMMIT\033[0m)\n" $DIR
       fi
     else
-      echo "\033[33m>\033[0m \033[31mSkipping $i\033[0m ... not a Git repo"
+      printf "\033[33m> \033[31m%-25s \033[33mNot a Git repo ...\033[0m\n" $DIR
     fi
     cd $OLDPWD
   done
@@ -84,16 +75,17 @@ git_tags_cur() {
 git_branch_cur() {
   CURPWD=$PWD
   cd $R_SOMA_DEV
+  printf "  \033[32m%-25s\033[33m Branch State\033[0m\n" 'Package'
   for i in {Soma*,somaverse,palantir}; do
     cd $i
     BRANCH=`git rev-parse --abbrev-ref HEAD`
     if [[ $BRANCH == 'master' ]]; then
       UNPUSHED=`git log @{upstream}.. --oneline | wc -l | xargs`
-      echo "\033[33m>\033[0m \033[31m$i\033[0m: \033[32m$BRANCH\033[0m \033[34m(ahead upstream: \033[33m$UNPUSHED\033[34m)\033[0m"
+      printf "\033[33m>\033[31m %-25s \033[32m$BRANCH \033[0m(\033[34mahead upstream: \033[33m$UNPUSHED\033[0m)\n" $i
     else 
       BEHIND_MASTER=`git rev-list --left-only --count master...$BRANCH`
       AHEAD_MASTER=`git rev-list --right-only --count master...$BRANCH`
-      echo "\033[33m>\033[0m \033[31m$i\033[0m: \033[32m$BRANCH\033[0m \033[34m(behind master: \033[33m$BEHIND_MASTER\033[34m - ahead master: \033[33m$AHEAD_MASTER\033[34m)\033[0m"
+      printf "\033[33m>\033[31m %-25s \033[32m$BRANCH \033[0m(\033[34mbehind master: \033[33m$BEHIND_MASTER\033[34m - ahead master: \033[33m$AHEAD_MASTER\033[34m)\033[0m\n" $i
     fi
     cd $OLDPWD
   done
@@ -107,7 +99,7 @@ git_check_status() {
     cd $i
     if [ -d ".git" ]; then
       if [[ -z $(git status --porcelain) ]]; then
-        echo -e "* \033[33m$i\033[0m ... \033[32mClean\033[0m"
+        echo -e "* \033[33m$i\033[0m ... \033[32mClean \xE2\x9C\x94\033[0m"
       else 
         BRANCH=`git rev-parse --abbrev-ref HEAD`
         echo "~~~~~~~~~~~~~~~~~~~~~~~"

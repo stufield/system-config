@@ -1,10 +1,12 @@
 #!/usr/bin/env Rscript
 
 # check spelling
-words <- devtools::spell_check()
-L <- length(words$word)
-if (L > 0) {
-  warning(paste0("Spelling errors (", L, ") detected!"), call. = FALSE)
+if (file.exists("DESCRIPTION")) {
+  words <- spelling::spell_check_package()
+  L <- length(words$word)
+  if (L > 0) {
+    warning(paste0("Spelling errors (", L, ") detected!"), call. = FALSE)
+  }
 }
 
 # check .lintr file

@@ -86,7 +86,7 @@ local({
     }
   })
 
-  .customCommands$.repo  <- c(CRAN = "http://cran.rstudio.com") # CRAN mirror
+  .customCommands$.repo  <- c(CRAN = "https://cloud.r-project.org/") # mirror
   .customCommands$.check <- function(jenkins = FALSE, ...) {
     if (jenkins)
       devtools::check(env_vars = c(ON_JENKINS = 'true', NOT_CRAN = 'true'), ...)

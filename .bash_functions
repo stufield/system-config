@@ -5,9 +5,8 @@
 vigrep() {
   # -o flag for opening files
   case $1 in
-    -o) echo "Opening VIM" 
-        vim -O $(grep -lr --include='*.R' $2 .); shift;;
-    *)  grep -r --color=always --include='*.R' $1 .; shift;;
+    -o|-open) vim $(grep -lr --include='*.R' $2 .); shift;;
+    *) grep -r --color=always --include='*.R' $1 .; shift;;
   esac
 }
 

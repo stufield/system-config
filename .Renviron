@@ -2,4 +2,4 @@
 # So that it picks up this environment variables during startup
 R_LIBS_USER=/Users/sfield/r_libs
 R_SOMA_DEV=/Users/sfield/bitbucket/
-GITHUB_PAT=f2f1c6dcd8b62219fee6b1c6dba011868a6645f1
+#GITHUB_PAT=f2f1c6dcd8b62219fee6b1c6dba011868a6645f1

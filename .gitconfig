@@ -42,3 +42,5 @@
 	required = true
 [credential]
 	helper = cache
+[commit]
+	template = /Users/sfield/commit-template

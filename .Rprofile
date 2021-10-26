@@ -20,7 +20,7 @@ options(
   max.print                  = 250,         # default 1000 too verbose
   warn.length                = 8170,        # this is the max possible
   devtools.name              = "Stu Field",
-  devtools.path              = "~/R-dev",
+  devtools.path              = "~/r-dev",
   devtools.desc.author       = "person('Stu', 'Field', email = 'sfield@somalogic.com', role = c('aut', 'cre'))",
   devtools.desc.license      = "MIT",
   covr.gcov                  = Sys.which("gcov"),

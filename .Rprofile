@@ -39,14 +39,42 @@ options(
 # fancy prompt
 # -------------- #
 if ( interactive() ) {
-  if ( requireNamespace("prompt", quietly = TRUE) ) {
-    git_prompt <- function(...) {
-      br <- paste0("\033[34m", prompt::git_branch(), "\033[39m")
-      paste("@", br, "\033[31m> \033[39m")
+  local({
+    .prompt_env <- new.env(parent = emptyenv())
+    .prompt_env$id <- 0L
+    emoji <- c(
+      "\U0001f600", # smile
+      "\U0001f973", # party face
+      "\U0001f638", # cat grin
+      "\U0001f308", # rainbow
+      "\U0001f947", # gold medal
+      "\U0001f389", # party popper
+      "\U0001f38a", # confetti ball
+      "\U0001F449"  # pointing finger
+    )
+    update_prompt <- function(...) {
+      options(prompt = git_prompt())
     }
-    prompt::set_prompt(git_prompt)
-    rm(git_prompt)
-  }
+    git_prompt <- function() {
+      if ( !dir.exists(".git") ) { # if outside git, iterate emoji
+        .prompt_env$id <- .prompt_env$id %% length(emoji) + 1L
+      }
+      br <- tryCatch(
+        system2("git", c("rev-parse", "--abbrev-ref", "HEAD"),
+                stdout = TRUE, stderr = FALSE),
+        warning = function(w) emoji[.prompt_env$id]
+      )
+      br <- paste0("\033[34m", br, "\033[39m")
+      paste("\033[36m@", br, "\033[31m> \033[39m")
+    }
+    addTaskCallback(
+      function(expr, value, ok, visible) {
+        try(update_prompt(expr, value, ok, visible), silent = TRUE)
+        return(TRUE)
+      }, name = "prompt_callback"
+    )
+    invisible()
+  })
 }
 
 # Special invisible commands

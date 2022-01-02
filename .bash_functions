@@ -3,11 +3,22 @@
 # --------------------- #
 
 vigrep() {
-  # -o flag for opening files
-  case $1 in
-    -o|-open) vim $(grep -lr --include='*.R' $2 .); shift;;
-    *) grep -r --color=always --include='*.R' $1 .; shift;;
-  esac
+  # [-o | --open] flag for opening files
+  USAGE="Usage: $0 [-o | --open] pattern files"
+  if [[ "$#" -lt 2 || $1 == "-open" ]]; then
+    echo "$USAGE"
+    return 1
+  fi
+  if [[ $1 == "-o" || $1 == "--open" ]]; then
+    shift
+    PATTERN=$1; shift;
+    echo "Running $0 with '$PATTERN':"
+    vim $(grep -lr $PATTERN $@)
+  else
+    PATTERN=$1; shift;
+    echo "Running $0 with '$PATTERN':"
+    grep --color=always $PATTERN $@
+  fi
 }
 
 clean_docker() {

@@ -1,7 +1,7 @@
 # --------------------------------------------------- #
 # General use suggested .Rprofile for env setup
 # Include additional functionality as required
-# 2021-04-26
+# 2022-02-06
 # Stu Field, Bioinformatics, SomaLogic, Inc.
 # --------------------------------------------------- #
 
@@ -20,7 +20,7 @@ options(
   max.print                  = 250,         # default 1000 too verbose
   warn.length                = 8170,        # this is the max possible
   devtools.name              = "Stu Field",
-  devtools.path              = "~/r-dev",
+  devtools.path              = Sys.getenv("R_LIBS_DEV"),
   devtools.desc.author       = "person('Stu', 'Field', email = 'sfield@somalogic.com', role = c('aut', 'cre'))",
   devtools.desc.license      = "MIT",
   covr.gcov                  = Sys.which("gcov"),
@@ -82,7 +82,8 @@ local({
   .customCommands <- new.env()
   .customCommands$devmode <- local({
     .prompt <- NULL
-    function(on = NULL, path = getOption("devtools.path")) {
+    function(on = NULL, path = Sys.getenv("R_LIBS_DEV")) {
+  
       lib_paths <- .libPaths()
       path <- normalizePath(path, winslash = "/", mustWork = FALSE)
       if (is.null(on)) {

@@ -3,5 +3,6 @@
 #  - want /usr/local/bin first; Git version (Apple vs Homebrew)
 PATH=/usr/local/bin:/usr/bin:/bin
 R_LIBS_USER=/Users/sfield/r_libs
+R_LIBS_DEV=/Users/sfield/r-dev
 R_SOMA_DEV=/Users/sfield/bitbucket/
 #GITHUB_PAT=f2f1c6dcd8b62219fee6b1c6dba011868a6645f1

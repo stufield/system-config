@@ -43,4 +43,4 @@
 [credential]
 	helper = cache
 [commit]
-	template = /Users/sfield/commit-template
+	template = /Users/sfield/commit-msg-template

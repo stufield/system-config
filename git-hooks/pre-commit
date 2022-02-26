@@ -1,6 +1,9 @@
 #!/usr/bin/env Rscript
 
-# check spelling
+# To enable this hook, rename this file to "pre-commit"
+# To disable this hook, rename this file to "pre-commit.sample"
+# author: Stu Field
+
 if (file.exists("DESCRIPTION")) {
   words <- spelling::spell_check_package()
   L <- length(words$word)

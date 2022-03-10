@@ -60,8 +60,7 @@ git_tags_cur() {
       if [ -z "$TAG" ]; then
         printf "\033[33m> \033[32m%-25s \033[33mNo tags ...\033[0m\n" $DIR
       else
-        COMMIT=$(git rev-list -n 1 $TAG)
-        COMMIT=$(git rev-parse --short $COMMIT)
+        COMMIT=$(git tag -l --format='%(object)' $TAG | cut -c -7)
         printf "\033[33m>\033[032m %-25s\033[0m \033[33m$TAG\033[0m (\033[034m$COMMIT\033[0m)\n" $DIR
       fi
     else

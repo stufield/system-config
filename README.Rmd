@@ -10,83 +10,102 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-library(devtools)
 ```
 
 # system_config
-A Stu specific repository of system level files:
+A Stu-specific repository of system level files:
 
-* 'dot' files
-* run command (`rc`) files
-* configuration files
+- 'dot' files
+- run command (`rc`) files
+- configuration files
+
 
 ---------
 
-## File Summary
-| File               | Configure                |
-|------------------- | ------------------------ |
-| `.Rprofile`        | Profile for R startup
-| `.Renviron`        | Config file for RStudio global variables
-| `.gitconfig`       | Global config file for Git
-| `.gitignore_global`| Global Git ignore file
-| `.zshrc`           | Config file for Z-shell
-| `.bash_functions`  | BASH function utilities 
-| `.bashrc`          | Config file for Bourne Again Shell (BASH)
-| `.vimrc`           | Config file for VIM
 
-| Directory          | Configure                |
-|------------------- | ------------------------ |
-| `zsh`              | ZSH specific config *.zsh files
-| `vim`              | VIM specific config files
-| `texmf`            | Config for `pdflatex`; particularly `stuTeX.tex`
+### Files
+| File               | Configure                            | Destination |
+|------------------- | ------------------------------------ | ----------- |
+| `.Rprofile`        | Profile for `R` start-up             | `~/`        |
+| `.Renviron`        | Config for RStudio global variables  | `~/`        |
+| `.zshrc`           | Config for Z-shell                   | `~/`        |
+| `.bashrc`          | Config for Bourne Again Shell (BASH) | `~/`        |
+| `.bash_functions`  | BASH function utilities              | `~/`        |
+| `.vimrc`           | Config for VIM                       | `~/`        |
+| `.gitconfig`       | Global config file for Git           | `~/`        |
+| `.gitignore_global`| Global Git ignore file               | `~/`        |
+
+
+### Directories
+| Directory     | Configure                         | Destination     |
+|-------------- | --------------------------------- | --------------- |
+| `git-hooks`   | `git` related hooks & config      | `~/.git/hooks/` |
+| `vim`         | VIM specific config `*.vim` files | `~/.vim/`       |
+| `zsh`         | ZSH specific custom config `*.zsh` files            | `~/.oh-my.zsh/custom/` |
+| `texmf`       | Config for `pdflatex`; particularly `stuTeX.tex`    | `foo` |
 
 
 -------------
 
+# Installation
 
-### Debugger mode (`.Rprofile`)
-Allows for user friendly simplified call stack traces with a simple toggle:
-
-```{r, error = TRUE, eval = FALSE}
-f <- function(x) {
-  x + g(x)
-}
-
-g <- function(y) {
-  foo <- y * 2
-  bar <- paste0(foo, h())
-  bar - 100
-}
-
-h <- function() {
-  stop("error here", call. = FALSE)
-}
-
-f(pi)       # not very informative
-
-traceback() # traceback is ok
-
-# Turn on de-bugger mode
-bugger
-
-f(pi)       # automatically prints the stack trace as a tree
-
-# Turn off de-bugger mode
-bugger
+```bash
+cd $HOME
+git clone git@github.com:stufield/system-config.git
 ```
 
-* `rlang` [https://www.tidyverse.org/articles/2019/01/rlang-0-3-1/](https://www.tidyverse.org/articles/2019/01/rlang-0-3-1/)
+### Install `.oh-my-zsh`
 
-
-
-<details>
-<summary>Session info</summary>
-```{r}
-session_info()
+```bash
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
-</details>
+
+
+### Install `zsh-autosuggestions`
+
+```bash
+git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+```
+
+
 
 -------------
+
+## Reload ZSH
+
+```bash
+source ~/.zshrc
+OR
+zshreload
+```
+
+
+### dev mode (`.Rprofile`)
+Allows for user friendly development mode to alternative `.libPath()` (toggle):
+
+```{r devmode, eval = FALSE}
+devmode()  # ON
+devmode()  # OFF
+```
+
+
+### Commit message template
+Set up a standard commit message template to standardize the look
+and feel of commit messages to SomaLogic Git repositories.
+
+At the moment I recommend configuring inside the local
+Git repository, however, if you wish, you can set the template
+globally to implement in all your system repositories.
+
+```bash
+git config --local commit.template "~/path/to/sys-config/commit-msg-template"
+OR
+git config --global commit.template "~/path/to/sys-config/commit-msg-template"
+```
+
+
+-------------
+
 
 Created on `r Sys.Date()` by [Rmarkdown](https://github.com/rstudio/rmarkdown)
 (v`r utils::packageVersion("rmarkdown")`) and `r R.version$version.string`.

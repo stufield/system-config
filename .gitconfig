@@ -40,7 +40,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[credential]
-	helper = cache
 [commit]
 	template = /Users/sfield/commit-msg-template
+[init]
+	defaultBranch = main

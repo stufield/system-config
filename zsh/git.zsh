@@ -80,7 +80,7 @@ git_branch_cur() {
     BRANCH=`git rev-parse --abbrev-ref HEAD`
     if [[ $BRANCH == 'master' ]]; then
       UNPUSHED=`git log @{upstream}.. --oneline | wc -l | xargs`
-      printf "\033[33m>\033[31m %-25s \033[32m$BRANCH \033[0m(\033[34mahead upstream: \033[33m$UNPUSHED\033[0m)\n" $i
+      printf "\033[33m>\033[31m %-25s \033[32m$BRANCH \033[0m(\033[34mahead remote: \033[33m$UNPUSHED\033[0m)\n" $i
     else 
       BEHIND_MASTER=`git rev-list --left-only --count master...$BRANCH`
       AHEAD_MASTER=`git rev-list --right-only --count master...$BRANCH`

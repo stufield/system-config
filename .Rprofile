@@ -81,9 +81,7 @@ if ( interactive() ) {
 local({
   .customCommands <- new.env()
   .customCommands$devmode <- local({
-    .prompt <- NULL
-    function(on = NULL, path = Sys.getenv("R_LIBS_DEV")) {
-  
+    function(on = NULL, path = getOption("devtools.path")) {
       lib_paths <- .libPaths()
       path <- normalizePath(path, winslash = "/", mustWork = FALSE)
       if (is.null(on)) {
@@ -98,18 +96,10 @@ local({
         }
         message("Dev mode: ON")
         options(dev_path = path)
-        if (is.null(.prompt)) {
-          .prompt <<- getOption("prompt")
-        }
-        options(prompt = paste("d> "))
         .libPaths(c(path, lib_paths))
       } else {
         message("Dev mode: OFF")
         options(dev_path = NULL)
-        if (!is.null(.prompt)) {
-          options(prompt = .prompt)
-        }
-        .prompt <<- NULL
         .libPaths(setdiff(lib_paths, path))
       }
     }

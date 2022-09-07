@@ -72,24 +72,36 @@ git_tags_cur() {
   cd $CURPWD
 }
 
-git_branch_status() {
+git_branch_status2() {
   CURPWD=$PWD
-  cd $R_SOMA_DEV
-  printf "  \033[32m%-25s\033[33m Branch State\033[0m\n" 'Package'
-  for i in {Soma*,somaverse,palantir}; do
+  printf "  \033[32m%-25s\033[33m Branch State\033[0m\n" 'Repository'
+
+  DIRS=""
+  for i in `ls -d $R_SOMA_DEV/*/`; do
     cd $i
-    CUR_BRANCH=`git rev-parse --abbrev-ref HEAD`
-    if [[ $CUR_BRANCH == 'master' || $CUR_BRANCH == 'main' ]]; then
-      UNPUSHED=`git log @{upstream}.. --oneline | wc -l | xargs`
-      printf "\033[33m>\033[31m %-25s \033[32m$CUR_BRANCH \033[0m(\033[34mahead remote: \033[33m$UNPUSHED\033[0m)\n" $i
-    else 
-      BEHIND_MASTER=`git rev-list --left-only --count master...$CUR_BRANCH`
-      AHEAD_MASTER=`git rev-list --right-only --count master...$CUR_BRANCH`
-      printf "\033[33m>\033[31m %-25s \033[32m$CUR_BRANCH \033[0m(\033[34mbehind master: \033[33m$BEHIND_MASTER\033[34m - ahead master: \033[33m$AHEAD_MASTER\033[34m)\033[0m\n" $i
+    if [ -d ".git" ]; then
+      DIRS+=($i)
     fi
-    cd $OLDPWD
+  done
+
+  for dir in $DIRS; do
+    cd $dir && git_branch_status
   done
   cd $CURPWD
+}
+
+git_branch_status() {
+  BASENAME=${PWD##*/}
+  CUR_BRANCH=`git rev-parse --abbrev-ref HEAD 2>/dev/null`
+  DEFAULT_BRANCH=$(git_main_branch)   # comes from ZSH git plugin
+  COMMITS_AHEAD=`git rev-list --count @{upstream}..HEAD 2>/dev/null`
+  COMMITS_BEHIND=`git rev-list --count HEAD..@{upstream} 2>/dev/null`
+  printf "\033[33m>\033[31m %-25s \033[32m$CUR_BRANCH \033[0m(\033[34mbehind remote: \033[33m$COMMITS_BEHIND\033[34m <|> ahead remote: \033[33m$COMMITS_AHEAD\033[0m)\n" $BASENAME
+  if [[ $CUR_BRANCH != $DEFAULT_BRANCH ]]; then
+    COMMITS_AHEAD_DEFAULT=`git rev-list --right-only --count $DEFAULT_BRANCH...$CUR_BRANCH`
+    COMMITS_BEHIND_DEFAULT=`git rev-list --left-only --count $DEFAULT_BRANCH...$CUR_BRANCH`
+    printf "%-27s \033[32m$CUR_BRANCH \033[0m(\033[34mbehind $DEFAULT_BRANCH: \033[33m$COMMITS_BEHIND_DEFAULT\033[34m <|> ahead $DEFAULT_BRANCH: \033[33m$COMMITS_AHEAD_DEFAULT\033[34m)\033[0m\n"
+  fi
 }
 
 git_check_status() {

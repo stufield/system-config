@@ -81,19 +81,11 @@ if ( interactive() ) {
 local({
   .customCommands <- new.env()
   .customCommands$devmode <- local({
-    function(on = NULL, path = getOption("devtools.path")) {
+    function(path = getOption("devtools.path")) {
       lib_paths <- .libPaths()
-      path <- normalizePath(path, winslash = "/", mustWork = FALSE)
-      if (is.null(on)) {
-        on <- !(path %in% lib_paths)
-      }
+      path <- normalizePath(path, winslash = "/", mustWork = TRUE)
+      on <- !(path %in% lib_paths)
       if (on) {
-        if (!file.exists(path)) {
-          dir.create(path, recursive = TRUE, showWarnings = FALSE)
-        }
-        if (!file.exists(path)) {
-          stop("Failed to create ", path, call. = FALSE)
-        }
         message("Dev mode: ON")
         options(dev_path = path)
         .libPaths(c(path, lib_paths))
@@ -106,11 +98,16 @@ local({
   })
 
   .customCommands$.repo  <- c(CRAN = "https://cloud.r-project.org/") # mirror
-  .customCommands$.check <- function(jenkins = FALSE, ...) {
-    if (jenkins)
-      devtools::check(env_vars = c(ON_JENKINS = 'true', NOT_CRAN = 'true'), ...)
-    else
-      devtools::check()
+  .customCommands$.check <- function(jenkins = TRUE, ...) {
+    if (jenkins) {
+      devtools::check(document = FALSE,
+                      vignettes = FALSE,
+                      env_vars = c(ON_JENKINS = "true",
+                                   NOT_CRAN = "true",
+                                   TZ = "America/Denver"), ...)
+    } else {
+      devtools::check(...)
+    }
   }
   .customCommands$detach_custom <- function() {
     message("Detaching '.customCommands' from search path")

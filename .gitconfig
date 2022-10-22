@@ -23,7 +23,7 @@
   unstage = restore --staged 
 	plog = log --graph --pretty=format:'%h -%d %s %n' --abbrev-commit --date=relative --branches
 	taglog = log --pretty=oneline --decorate --tags --no-walk
-	subupdate = submodule update --remote --merge
+	pull-submodules = submodule update --remote --merge
 	subpush = push --recurse-submodules=on-demand
   author = config user.name \"Stu Field\"
   email = config user.email \"sfield@somalogic.com\"

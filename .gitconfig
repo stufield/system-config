@@ -27,6 +27,7 @@
 	subpush = push --recurse-submodules=on-demand
   author = config user.name \"Stu Field\"
   email = config user.email \"sfield@somalogic.com\"
+  diffcommit = "!f() { git diff HEAD~$(($1-1))..HEAD~$(($2-1)); }; f"
 [pager]
 	diff = false
 	log = false

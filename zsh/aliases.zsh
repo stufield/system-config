@@ -29,7 +29,6 @@ alias zshreload='source ~/.zshrc'
 
 # misc
 alias vinowrap="vi -c 'set nowrap'"
-alias slide='~/slide-pipelines/slide-cli/slide'
 
 #dockers
 #alias containerclean="docker ps -a -q | xargs docker rm"

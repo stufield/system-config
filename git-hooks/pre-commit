@@ -1,14 +1,14 @@
-#!/usr/bin/env Rscript
+#!/usr/bin/env Rscript --vanilla
 
 # To enable this hook, rename this file to "pre-commit"
 # To disable this hook, rename this file to "pre-commit.sample"
 # author: Stu Field
 
-if (file.exists("DESCRIPTION")) {
+if (requireNamespace("spelling", quietly = TRUE) && file.exists("DESCRIPTION")) {
   words <- spelling::spell_check_package()
   L <- length(words$word)
-  if (L > 0) {
-    warning(paste0("Spelling errors (", L, ") detected!"), call. = FALSE)
+  if (L > 0L) {
+    warning("Spelling errors (", L, ") detected!", call. = FALSE)
   }
 }
 

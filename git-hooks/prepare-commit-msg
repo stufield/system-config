@@ -1,9 +1,13 @@
 #!/bin/sh
 #
-# This hook is called by "git commit" to prepare 
-# the commit log message.
+# An example hook script to prepare the commit log message.
+# Called by "git commit" with the name of the file that has the
+# commit message, followed by the description of the commit
+# message's source.  The hook's purpose is to edit the commit
+# message file.  If the hook fails with a non-zero status,
+# the commit is aborted.
 #
-# below we intercept the hook to intentionally slow 
+# the commented code below we intercept the hook to intentionally slow 
 # down git's application of cherry-picks during rebase
 # todos that can cause collision with a persistent
 # .git/index.lock file on slower releasing EFS filesystems.
@@ -15,15 +19,29 @@
 # To disable this hook, rename this file to "prepare-commit-msg.sample"
 # author: Stu Field
 
-FILE=.git/index.lock
+LOCKFILE=$GIT_DIR/index.lock
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
 
-if [ -f $FILE ]; then
-  echo "\tpausing for 1s ..."
-  sleep 1.0
-  if [ -f $FILE ]; then
-    echo "\tdeleting '$FILE' file ..."
-    rm -rf $FILE
-  fi
-else
-  echo "Good news! No '$FILE' file!"
-fi
+echo "commit message file:"
+echo $COMMIT_MSG_FILE
+cat $COMMIT_MSG_FILE
+
+echo "commit message source:"
+echo $COMMIT_SOURCE
+
+echo "SHA1:"
+echo $SHA1
+
+#echo "* prepare-commit-msg hook ... pausing for 1s"
+#if [ -f $LOCKFILE ]; then
+#  echo "\tpausing for 1s ..."
+#  sleep 1.0
+#  if [ -f $LOCKFILE ]; then
+#    echo "\tdeleting '$LOCKFILE' file ..."
+#    rm -rf $LOCKFILE
+#  fi
+#else
+#  echo "Good news! No '$LOCKFILE' file!"
+#fi

@@ -29,7 +29,7 @@ lint_commit_msg <- function(x) {
     warning("Title should not end with a period (", sha, ")", call. = FALSE)
     cnt <- cnt + 1L
   }
-  if ( nchar(x[1L]) > 60 ) {
+  if ( nchar(x[1L]) > 60L ) {
     warning("Title is too long (", nchar(x[1L]), ") for (", sha, ")", call. = FALSE)
     cnt <- cnt + 1L
   }
@@ -52,9 +52,9 @@ lint_commit_msg <- function(x) {
     warning("Work in progress (wip) commit detected! (", sha, ")", call. = FALSE)
     cnt <- cnt + 1L
   }
-  x <- paste(x, collapse = "\n")
-  jira <- grepl("[A-Z]{2,10}-[0-9]{1,4}", x)
-  gh   <- grepl("fixes .*#[0-9]{1,4}|closes .*#[0-9]{1,4}", x, ignore.case = TRUE)
+  y <- paste(x, collapse = "\n")
+  jira <- grepl("[A-Z]{2,10}-[0-9]{1,4}", y)
+  gh   <- grepl("fixes .*#[0-9]{1,4}|closes .*#[0-9]{1,4}", y, ignore.case = TRUE)
   if ( !(jira || gh) ) {
     warning("Could not find an issue number in commit message (", sha, ")",
             call. = FALSE)

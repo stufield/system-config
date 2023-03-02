@@ -1,0 +1,9 @@
+# https://stackoverflow.com/questions/43597632/understanding-the-contents-of-the-makevars-file-in-r-macros-variables-r-ma
+# https://stackoverflow.com/questions/22555526/set-cxxflags-in-rcpp-makevars
+#
+CXX=clang++
+C=clang
+FLIBS=-I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include
+CFLAGS=-O2 -D_FORTIFY_SOURCE=2
+CXXFLAGS=-O3 -Wall -pipe -Wno-unused -pedantic
+CXX11FLAGS=-O3 -Wall -pipe -Wno-unused -pedantic

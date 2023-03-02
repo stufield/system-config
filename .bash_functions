@@ -1,5 +1,8 @@
 # --------------------- #
 # Stu's Bash Functions
+#   - a collection of BASH utilities
+#     for use at the command line
+#     for user specific common operations
 # --------------------- #
 
 vigrep() {
@@ -21,11 +24,13 @@ vigrep() {
   fi
 }
 
-clean_docker() {
+
+nuke_docker() {
   docker stop edge_shiny_1 edge_jupyter_1
   docker rm -f edge_shiny_1 edge_jupyter_1
   docker image prune -a
 }
+
 
 render_README() {
   echo "Rendering README.Rmd"
@@ -35,36 +40,13 @@ render_README() {
   rm -f README.html
 }
 
-update_READMEs() {
-  CURPWD=$PWD
-  PKGS=(
-    SomaReadr
-    SomaGlobals
-    SomaPlyr
-    SomaPlot
-    SomaClassify
-    SomaSurvival
-    SomaMixedEffects
-    SomaPCA
-    SomaNormalization
-    SomaStabilitySelection
-    palantir
-    somaverse
-  )
-  cd $R_SOMA_DEV
-  for i in ${PKGS[@]}; do
-    echo "$i:"
-    cd $i && render_README
-    cd ..
-  done
-  cd $CURPWD
-}
 
 runRerrors(){  # runs the output Rcheck R script
   R --vanilla < $1 > out.txt
 }
 
-zip_deliv(){
+
+zip_deliver(){
 
   length=`ls *.pdf | wc -l`
 
@@ -220,37 +202,6 @@ convertpng(){
     convert -density 300 $i png/`basename $i ${i##*.}`png;
   done
   echo "* Done"
-}
-
-
-vmail() {
-# vmail $mike -u Subject Here -a file.R
-# alias email2="sendemail -s pine -f 'Stu Field <sfield@somalogic.com>' -bcc sfield@somalogic.com -t "
-  if [ -e /tmp/vmail.tmp ]; then
-    rm -f /tmp/vmail.tmp
-  fi
-  if [ -e /tmp/vmail.tmp2 ]; then
-    rm -f /tmp/vmail.tmp2
-  fi
-
-  #vim -c "setlocal spell" /tmp/vmail.tmp
-  vim -u /home/sfield/.vim/empty --noplugin -c "setlocal spell" /tmp/vmail.tmp
-
-  if [ -e /tmp/vmail.tmp ]; then
-    echo "<html>" > /tmp/vmail.tmp2
-    sed "s/ /\&nbsp/g" /tmp/vmail.tmp | sed "s/$/<br\/>/g" | sed "s/<code>.*$/<font face='monospace'>/g" | sed "s/<\/code>.*$/<\/font>/g" >> /tmp/vmail.tmp2
-    echo "</html>" >> /tmp/vmail.tmp2
-  fi
-
-  if [ -e /tmp/vmail.tmp2 ]; then
-    sendemail -s pine -f 'Stu Field <sfield@somalogic.com>' -bcc sfield@somalogic.com -t $@ -o message-file=/tmp/vmail.tmp2
-    if [ $? -ne 0 ]; then
-      cat /tmp/vmail.tmp
-    fi
-    mkdir -p /tmp/saved_vmail;
-    \cp -f /tmp/vmail.tmp /tmp/saved_vmail/vmail_message.txt
-    rm -f /tmp/vmail.tmp /tmp/vmail.tmp2
-  fi
 }
 
 

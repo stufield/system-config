@@ -100,8 +100,8 @@ alias lss='ls -ACF'
 alias stack='dirs -v'
 alias R='R --quiet'
 alias Rv='R --vanilla'
-alias cp='cp -i'           # ask are you sure y/n?
-alias mv='mv -i'           # ask are you sure y/n?
+alias cp='cp -i'           # are you sure y/n?
+alias mv='mv -i'           # are you sure y/n?
 
 # enable programmable completion features (you don't need to enable this, 
 # if it's already enabled in /etc/bash.bashrc and /etc/profile sources /etc/bash.bashrc).

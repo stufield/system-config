@@ -36,7 +36,7 @@ RPS1='$(vi_mode_prompt_info)'
 RPS2=$RPS1
 
 # Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
-export KEYTIMEOUT=5
+export KEYTIMEOUT=1
 
 
 
@@ -89,6 +89,9 @@ COMPLETION_WAITING_DOTS="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+
+# ZSH-PLUGINS:
+#
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -132,7 +135,7 @@ setopt HIST_VERIFY            # when entering line with history expansion,
 # R Variables
 # -------------
 #export JAVA_HOME=/usr/lib/jvm/java-9-oracle/bin/java
-export R_SOMA_DEV=$HOME/bitbucket
+export R_SOMAVERSE=$HOME/bitbucket
 export R_LIBS_USER=$HOME/r-libs
 export R_LIBS_DEV=$HOME/r-dev
 export R_HISTSIZE=1000000

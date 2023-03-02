@@ -1,8 +1,7 @@
 # --------------------------------------------------- #
-# General use suggested .Rprofile for env setup
-# Include additional functionality as required
-# 2022-02-06
-# Stu Field, Bioinformatics, SomaLogic, Inc.
+# General use suggested .Rprofile for R env setup
+# Stu Field (Bioinformatics)
+# 2023-03-02
 # --------------------------------------------------- #
 
 # ---------------- #
@@ -21,7 +20,7 @@ options(
   warn.length                = 8170,        # this is the max possible
   devtools.name              = "Stu Field",
   devtools.path              = Sys.getenv("R_LIBS_DEV"),
-  devtools.desc.author       = "person('Stu', 'Field', email = 'sfield@somalogic.com', role = c('aut', 'cre'))",
+  devtools.desc.author       = "person('Stu', 'Field', email = 'stu.g.field@gmail.com', role = c('aut', 'cre'))",
   devtools.desc.license      = "MIT",
   covr.gcov                  = Sys.which("gcov"),
   reprex.si                  = TRUE,

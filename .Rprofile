@@ -14,7 +14,9 @@ options(
   warnPartialMatchArgs       = FALSE,
   warnPartialMatchDollar     = FALSE,
   warnPartialMatchAttr       = FALSE,
-  repos                      = c(rspm = "https://rstudiopm.sladmin.com/sl-internal-plus-full-cran/1718/"),
+  repos                      = c(rspm_snapshot = file.path("https://rstudiopm.sladmin.com/sl-internal-plus-full-cran",
+                                                           Sys.getenv("RSPM_SNAPSHOT"), ""),
+                                 CRAN = "https://cloud.r-project.org/"),
   roxygen.comment            = "#' ",
   max.print                  = 250,         # default 1000 too verbose
   warn.length                = 8170,        # this is the max possible

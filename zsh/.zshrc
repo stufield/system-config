@@ -46,8 +46,7 @@ export KEYTIMEOUT=1
 #ZSH_THEME="cobalt2"
 #ZSH_THEME="agnoster"
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_MODE="nerdfont-complete"
+ZSH_THEME="af-magic"
 
 
 # Uncomment the following line to use case-sensitive completion.
@@ -134,21 +133,11 @@ setopt HIST_VERIFY            # when entering line with history expansion,
 # -------------
 # R Variables
 # -------------
-#export JAVA_HOME=/usr/lib/jvm/java-9-oracle/bin/java
-export R_LIBS_USER=$HOME/r-libs
 export R_HISTSIZE=1000000
 export R_LIBS_DEV=$HOME/r-dev
 export R_SOMAVERSE=$HOME/bitbucket
 export LOCAL_UID=`id -u`
-export RSPM_SNAPSHOT=1718
-export PYTHONPATH=$HOME/scripts/modules
 
-# ------------------
-# Oracle Variables
-# ------------------
-export LD_LIBRARY_PATH=/usr/lib/oracle/12.2/client64/lib
-export TNS_ADMIN=/usr/lib/oracle/12.2/client64
-export ORACLE_HOME=/usr/lib/oracle/12.2/client64
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -159,13 +148,8 @@ export ORACLE_HOME=/usr/lib/oracle/12.2/client64
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-if [[ "$OSTYPE" == "linux"* ]]; then
-  xrdb ~/.Xdefaults
-fi
-
 stty quit ""
 
 source $HOME/.bash_functions
-source $HOME/.iterm2_shell_integration.zsh
 
 echo "\033[32m\xE2\x9C\x94\033[0m Welcome to \033[31mZSH \033[33m... \033[34m$USER\033[0m"

@@ -1,9 +1,9 @@
 [user]
 	name = Stu Field
-	email = stu.g.field@gmail.com
+	email = sfield@somalogic.com
 [core]
-	excludefile = /Users/sfield/.gitignore_global
-	excludesfile = /Users/sfield/.gitignore_global
+	excludefile = /home/sfield/.gitignore_global
+	excludesfile = /home/sfield/.gitignore_global
 	editor = vim
 [color]
 	ui = true
@@ -44,6 +44,6 @@
 	process = git-lfs filter-process
 	required = true
 [commit]
-	template = /Users/sfield/commit-msg-template
+	template = /home/sfield/commit-msg-template
 [init]
 	defaultBranch = main

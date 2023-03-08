@@ -135,11 +135,11 @@ setopt HIST_VERIFY            # when entering line with history expansion,
 # R Variables
 # -------------
 #export JAVA_HOME=/usr/lib/jvm/java-9-oracle/bin/java
-export R_SOMAVERSE=$HOME/bitbucket
-export RSPM_SNAPSHOT=1718
+export R_HISTSIZE=1000000
 export R_LIBS_USER=$HOME/r-libs
 export R_LIBS_DEV=$HOME/r-dev
-export R_HISTSIZE=1000000
+export R_SOMAVERSE=$HOME/bitbucket
+export RSPM_SNAPSHOT=1718
 export LOCAL_UID=`id -u`
 export PYTHONPATH=$HOME/scripts/modules
 

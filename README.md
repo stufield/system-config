@@ -12,26 +12,34 @@ A Stu-specific repository of system level files:
 
 ### Files
 
-| File                | Configure                            | Destination |
-|---------------------|--------------------------------------|-------------|
-| `.Rprofile`         | Profile for `R` start-up             | `~/`        |
-| `.Renviron`         | Config for RStudio global variables  | `~/`        |
-| `.zshrc`            | Config for Z-shell                   | `~/`        |
-| `.bashrc`           | Config for Bourne Again Shell (BASH) | `~/`        |
-| `.bash_functions`   | BASH function utilities              | `~/`        |
-| `.vimrc`            | Config for VIM                       | `~/`        |
-| `.gitconfig`        | Global config file for Git           | `~/`        |
-| `.gitignore_global` | Global Git ignore file               | `~/`        |
+Set up symlinks according to the schema below via:
+
+```bash
+ln -s ~/path/to/system-config/<file> .
+ln -s ~/path/to/system-config/<directory> .
+```
+
+
+| File                     | Configure                            | Destination |
+|--------------------------|--------------------------------------|-------------|
+| `R/.Rprofile`            | Profile for `R` start-up             | `~/`        |
+| `R/.Renviron`            | Config for RStudio global variables  | `~/`        |
+| `zsh/.zshrc`             | Config for Z-shell                   | `~/`        |
+| `bash/.bashrc`           | Config for Bourne Again Shell (BASH) | `~/`        |
+| `bash/.bash_functions`   | BASH function utilities              | `~/`        |
+| `vim/.vimrc`             | Config for VIM                       | `~/`        |
+| `git/.gitconfig`         | Global config file for Git           | `~/`        |
+| `git/.gitignore_global`  | Global Git ignore file               | `~/`        |
 
 
 ### Directories
 
-| Directory   | Configure                                        | Destination            |
-|-------------|--------------------------------------------------|------------------------|
-| `git-hooks` | `git` related hooks & config                     | `~/.git/hooks/`        |
-| `vim`       | VIM specific config `*.vim` files                | `~/.vim/`              |
-| `zsh`       | ZSH specific custom config `*.zsh` files         | `~/.oh-my.zsh/custom/` |
-| `texmf`     | Config for `pdflatex`; particularly `stuTeX.tex` | `foo`                  |
+| Directory     | Configure                                        | Destination            |
+|---------------|--------------------------------------------------|------------------------|
+| `git/hooks/*` | `git` related hooks                              | `~/.git/hooks/`        |
+| `vim/*`       | VIM specific config `*.vim` files                | `~/.vim/`              |
+| `zsh/*.zsh`   | ZSH specific custom config `*.zsh` files         | `~/.oh-my.zsh/custom/` |
+| `texmf/*`     | Config for `pdflatex`; particularly `stuTeX.tex` | `~/`                   |
 
 ----------
 
@@ -84,13 +92,16 @@ devmode()  # OFF
 Set up a standard commit message template to standardize the look and
 feel of commit messages to `Git` repositories.
 
-At the moment I recommend configuring inside the local Git repository,
+At the moment I recommend configuring inside the local `Git` repository,
 however, if you wish, you can set the template globally to implement in
-all your system repositories.
+all your system repositories. 
+__note:__ the result of the commands below has
+already been incorporated into the `.gitconfig` provided using _my_ 
+default paths.
 
 ```bash
-git config --local commit.template "~/path/to/sys-config/commit-msg-template"
+git config --local commit.template "~/path/to/sys-config/git/commit-msg-template"
 OR
-git config --global commit.template "~/path/to/sys-config/commit-msg-template"
+git config --global commit.template "~/path/to/sys-config/git/commit-msg-template"
 ```
 

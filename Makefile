@@ -13,13 +13,13 @@ RSCRIPT = Rscript --vanilla
 all: check clean
 
 roxygen:
-	@ $(RSCRIPT) \
-	-e "devtools::document(roclets = c('rd', 'collate', 'namespace'))"
+	@ $(RSCRIPT) -e "roxygen2::roxygenise()"
 
 readme:
 	@ echo "Rendering README.Rmd"
 	@ $(RSCRIPT) \
-	-e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/MacOS/pandoc')" \
+	-e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools')" \
+	-e "options(cli.width = 80L)" \
 	-e "rmarkdown::render('README.Rmd', quiet = TRUE)"
 	@ $(RM) README.html
 
@@ -30,9 +30,12 @@ test:
 
 test_file:
 	@ $(RSCRIPT) \
-	-e "Sys.setenv(TZ = 'America/Denver')" \
+	-e "Sys.setenv(ON_JENKINS = 'true', TZ = 'America/Denver', NOT_CRAN = 'true')" \
 	-e "devtools::load_all()" \
 	-e "testthat::test_file('$(FILE)', reporter = 'progress', stop_on_failure = TRUE)"
+
+accept_snapshots:
+	@ Rscript -e "testthat::snapshot_accept()"
 
 build: roxygen
 	@ cd ..;\
@@ -45,13 +48,13 @@ check: build
 	@ cd ..;\
 	$(RCMD) check --no-manual $(PKGNAME)_$(PKGVERS).tar.gz
 
-install:
-	@ R CMD INSTALL --use-vanilla --preclean --resave-data .
-
 install_deps:
 	@ $(RSCRIPT) \
 	-e "if (!requireNamespace('remotes')) install.packages('remotes')" \
 	-e "remotes::install_deps(dependencies = TRUE)"
+
+install:
+	@ R CMD INSTALL --use-vanilla --preclean --resave-data .
 
 clean:
 	@ cd ..;\

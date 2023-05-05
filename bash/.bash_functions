@@ -35,7 +35,8 @@ nuke_docker() {
 render_README() {
   echo "Rendering README.Rmd"
   Rscript --vanilla \
-    -e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/MacOS/pandoc')" \
+    -e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools')" \
+    -e "options(cli.width = 80L)" \
     -e "rmarkdown::render('README.Rmd', quiet = TRUE)"
   rm -f README.html
 }

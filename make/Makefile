@@ -11,9 +11,11 @@ RSCRIPT = Rscript --vanilla
 
 
 all: check clean
+roxygen: docs
 
-roxygen:
-	@ $(RSCRIPT) -e "roxygen2::roxygenise()"
+docs:
+	@ $(RSCRIPT) \
+	-e "roxygen2::roxygenise(roclets = c('collate', 'namespace', 'rd'))"
 
 readme:
 	@ echo "Rendering README.Rmd"
@@ -37,11 +39,11 @@ test_file:
 accept_snapshots:
 	@ Rscript -e "testthat::snapshot_accept()"
 
-build: roxygen
+build: docs
 	@ cd ..;\
 	$(RCMD) build --resave-data $(PKGSRC)
 
-pkgdown: roxygen
+pkgdown: docs
 	@ $(RSCRIPT) inst/deploy-pkgdown.R
 
 check: build

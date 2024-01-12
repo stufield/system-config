@@ -43,9 +43,9 @@ export KEYTIMEOUT=1
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
 #ZSH_THEME="cobalt2"
 #ZSH_THEME="agnoster"
+#ZSH_THEME="robbyrussell"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_MODE="nerdfont-complete"
 
@@ -135,12 +135,12 @@ setopt HIST_VERIFY            # when entering line with history expansion,
 # R Variables
 # -------------
 #export JAVA_HOME=/usr/lib/jvm/java-9-oracle/bin/java
-export R_HISTSIZE=1000000
 export R_LIBS_USER=$HOME/r-libs
+export R_HISTSIZE=1000000
 export R_LIBS_DEV=$HOME/r-dev
 export R_SOMAVERSE=$HOME/bitbucket
-export RSPM_SNAPSHOT=1718
 export LOCAL_UID=`id -u`
+export RSPM_SNAPSHOT=1718
 export PYTHONPATH=$HOME/scripts/modules
 
 # ------------------

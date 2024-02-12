@@ -29,6 +29,7 @@
 	subpush = push --recurse-submodules=on-demand
 	no-merged = !git branch --no-merged $git_main_branch
 	merged = !git branch --merged $git_main_branch
+	wipe = !git stash && git stash drop --quiet
 [pager]
 	diff = false
 	log = false

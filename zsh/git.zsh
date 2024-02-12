@@ -73,7 +73,7 @@ git_tags_cur() {
   cd $CURPWD
 }
 
-git_branch_status2() {
+git_branch_sitrep() {
   CURPWD=$PWD
   printf "  \033[32m%-25s\033[33m Branch State\033[0m\n" 'Repository'
 

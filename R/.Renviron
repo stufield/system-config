@@ -5,5 +5,5 @@ PATH=/usr/local/bin:/usr/bin:/bin
 R_LIBS_USER=/Users/sfield/r-libs
 R_LIBS_DEV=/Users/sfield/r-dev
 R_SOMAVERSE=/Users/sfield/bitbucket
-RSPM_SNAPSHOT=1718
+RSPM_SNAPSHOT=2024-02-21+54iKbr6-
 

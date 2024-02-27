@@ -140,7 +140,7 @@ export R_HISTSIZE=1000000
 export R_LIBS_DEV=$HOME/r-dev
 export R_SOMAVERSE=$HOME/bitbucket
 export LOCAL_UID=`id -u`
-export RSPM_SNAPSHOT=1718
+export RSPM_SNAPSHOT=2024-02-21+54iKbr6-
 export PYTHONPATH=$HOME/scripts/modules
 
 # ------------------

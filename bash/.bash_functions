@@ -1,9 +1,9 @@
-# --------------------- #
-# Stu's Bash Functions
-#   - a collection of BASH utilities
-#     for use at the command line
-#     for user specific common operations
-# --------------------- #
+# --------------------------------- #
+# Stu's Bash Functions:
+# - a collection of BASH utilities
+#   for use at the command line
+#   for user specific common operations
+# --------------------------------- #
 
 vigrep() {
   # [-o | --open] flag for opening files
@@ -25,20 +25,15 @@ vigrep() {
 }
 
 
-nuke_docker() {
-  docker stop edge_shiny_1 edge_jupyter_1
-  docker rm -f edge_shiny_1 edge_jupyter_1
-  docker image prune -a
-}
-
-
-render_README() {
-  echo "Rendering README.Rmd"
+render_markdown() {
+  FILE=$1
+  echo "Rendering $FILE"
+  BASEFILE="${FILE%.*}"
   Rscript --vanilla \
     -e "Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools')" \
     -e "options(cli.width = 80L)" \
-    -e "rmarkdown::render('README.Rmd', quiet = TRUE)"
-  rm -f README.html
+    -e "rmarkdown::render('$FILE', quiet = TRUE)"
+  rm -f $BASEFILE.html
 }
 
 
@@ -143,32 +138,38 @@ unmount_drive(){
 }
 
 
+# list contents of a zip file
 lszip(){
   for i in $@; do unzip -l $i; done
 }
 
+# list files beginning with '.'
 lsdot(){
-  ls -A | grep ^\\.
+  if [ $# -ne 1 ]; then
+    ls -A | grep ^\\.
+  else
+    ls -A $1 | grep ^\\.
+  fi
 }
 
 
+# list number of files in directory
 lsn(){
   if [ $# -ne 1 ]; then
     ls | wc -l
   else
-    arg=$1
-    ls $arg | wc -l
+    ls $1 | wc -l
   fi
 }
 
 
+# list the last modified file/directory
 lslast(){
   if [ $# -ne 1 ]; then
-    path='.'
+    ls -At | head -n 1
   else
-    path=$1
+    ls -At $1 | head -n 1
   fi
-  ls -t $path | head -n 1
 }
 
 
@@ -235,17 +236,5 @@ setup_slidy() {
     cp $root/SlidyTemplate.Rmd $1/slidy_$1.Rmd
     echo "* Done creating $1 directory"
   fi
-}
-
-
-format_R_style() {
-  for j in $@; do
-    sed -i 's/\t/   /g' $j          # tabs -> spaces
-    sed -i 's/){/) {/' $j           # space after {
-    sed -i 's/else{/else {/' $j     # spaces after 'else'
-    sed -i 's/}else/} else/' $j     # space before 'else'
-    sed -i 's/if(/if (/' $j         # space after 'if'
-    echo "Updating R format for ... $j"
-  done
 }
 

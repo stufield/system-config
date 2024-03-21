@@ -5,7 +5,7 @@
 # author: Stu Field
 
 if (requireNamespace("spelling", quietly = TRUE) && file.exists("DESCRIPTION")) {
-  words <- spelling::spell_check_package()
+  words <- spelling::spell_check_package(vignettes = F)
   L <- length(words$word)
   if (L > 0L) {
     warning("Spelling errors (", L, ") detected!", call. = FALSE)

@@ -48,3 +48,5 @@
 	template = /Users/sfield/commit-msg-template
 [init]
 	defaultBranch = main
+[credential]
+	helper = cache

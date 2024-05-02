@@ -2,8 +2,8 @@
 #  - define environment variables defined in terminals
 #  - want /usr/local/bin first; Git version (Apple vs Homebrew)
 PATH=/usr/local/bin:/usr/bin:/bin
-R_LIBS_USER=r-libs
-R_LIBS_DEV=r-dev
-R_SOMAVERSE=sv
+R_LIBS_USER=~/r-libs
+R_LIBS_DEV=~/r-dev
+R_SOMAVERSE=~/sv
 RSPM_SNAPSHOT=2024-02-21+54iKbr6-
 

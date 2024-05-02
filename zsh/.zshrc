@@ -138,7 +138,7 @@ setopt HIST_VERIFY            # when entering line with history expansion,
 export R_LIBS_USER=$HOME/r-libs
 export R_HISTSIZE=1000000
 export R_LIBS_DEV=$HOME/r-dev
-export R_SOMAVERSE=$HOME/bitbucket
+export R_SOMAVERSE=$HOME/sv
 export LOCAL_UID=`id -u`
 export RSPM_SNAPSHOT=2024-02-21+54iKbr6-
 export PYTHONPATH=$HOME/scripts/modules
@@ -161,6 +161,7 @@ export ORACLE_HOME=/usr/lib/oracle/12.2/client64
 
 if [[ "$OSTYPE" == "linux"* ]]; then
   xrdb ~/.Xdefaults
+  export MEDIA=/media/jack
 fi
 
 stty quit ""

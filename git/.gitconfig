@@ -2,8 +2,8 @@
 	name = Stu Field
 	email = stu.g.field@gmail.com
 [core]
-	excludefile = /Users/sfield/.gitignore_global
-	excludesfile = /Users/sfield/.gitignore_global
+	excludefile = ~/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	editor = vim
 [color]
 	ui = true
@@ -19,7 +19,7 @@
 	prompt = false
 	tool = vimdiff
 [alias]
-	authorship = !git config --local user.name \"Stu Field\" && git config --local user.email \"sfield@somalogic.com\"
+	authorship = !git config --local user.name \"Stu Field\" && git config --local user.email \"stu.g.field@gmail.com\"
 	diffcommit = "!f() { git diff HEAD~$(($1-1))..HEAD~$(($2-1)); }; f"
 	merged = !git branch --merged $git_main_branch
 	no-merged = !git branch --no-merged $git_main_branch
@@ -45,7 +45,7 @@
 	process = git-lfs filter-process
 	required = true
 [commit]
-	template = /Users/sfield/commit-msg-template
+	template = ~/system-config/git/commit-msg-template
 [init]
 	defaultBranch = main
 [credential]

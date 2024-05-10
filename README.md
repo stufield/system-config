@@ -15,8 +15,8 @@ A Stu-specific repository of system level files:
 Set up symlinks according to the schema below via:
 
 ```bash
-ln -s ~/path/to/system-config/<file> .
-ln -s ~/path/to/system-config/<directory> .
+ln -sf ~/system-config/<file> .
+ln -sf ~/system-config/<directory> .
 ```
 
 
@@ -100,8 +100,8 @@ already been incorporated into the `.gitconfig` provided using _my_
 default paths.
 
 ```bash
-git config --local commit.template "~/path/to/sys-config/git/commit-msg-template"
+git config --local commit.template "~/sys-config/git/commit-msg-template"
 OR
-git config --global commit.template "~/path/to/sys-config/git/commit-msg-template"
+git config --global commit.template "~/sys-config/git/commit-msg-template"
 ```
 

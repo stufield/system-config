@@ -43,10 +43,12 @@ autocmd BufReadPost *
     \ endif
 
 colorscheme stuvim
+
 syntax on
+syntax spell toplevel
 
 " cpp S
-" au! Syntax cpp	source vim_syntax/cpp.vim
+" au! Syntax cpp source vim_syntax/cpp.vim
 
 :runtime! ftplugin/man.vim
 

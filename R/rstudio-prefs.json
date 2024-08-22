@@ -63,5 +63,6 @@
     "initial_working_directory": "~",
     "load_workspace": false,
     "insert_native_pipe_operator": true,
-    "indent_guides": "rainbowlines"
+    "indent_guides": "rainbowlines",
+    "source_with_echo": true
 }

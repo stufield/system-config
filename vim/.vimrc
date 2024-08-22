@@ -59,11 +59,15 @@ autocmd FileType adat set ts=75
 " single character insert
 nmap <Space> i_<Esc>r
 
+" wrap text ~ 80 char single line
+nmap <F4> gq$
 
-" Rd file link
-let @c = "\\code{\\link{x}}"
-nmap <F5> "cp
+" Replace equal sign (=) with <- symbol in R
+function ReplaceEquals()
+	s<=<\<-
+endfunction
 
+nmap <F3> :call ReplaceEquals() <CR>
 
 
 " Roxygen stuff
@@ -138,15 +142,7 @@ function Rdoc()
 	call append(s:lineNo + 7 + s:idx + 12,"#' @export ")
 endfunction
 
-nmap <F3> :call Rdoc() <CR>
-
-
-" Replace equal sign (=) with <- symbol in R
-function ReplaceEquals()
-	s<=<\<-
-endfunction
-
-nmap <F4> :call ReplaceEquals() <CR>
+nmap <F5> :call Rdoc() <CR>
 
 
 
@@ -156,7 +152,6 @@ function UpdateSpell()
 endfunction
 
 nmap <F6> :call UpdateSpell() <CR>
-
 
 
 " Fix a line tab with a J + i + Return + Esc

@@ -54,6 +54,7 @@ syntax spell toplevel
 
 autocmd FileType adat set nowrap
 autocmd FileType adat set ts=75
+autocmd FileType tex syntax spell toplevel 
 
 
 " single character insert

@@ -98,15 +98,10 @@ local({
 
   .customCommands$.repo  <- c(CRAN = "https://cloud.r-project.org/") # mirror
   .customCommands$.check <- function(jenkins = TRUE, ...) {
-    if (jenkins) {
-      devtools::check(document = FALSE,
-                      vignettes = FALSE,
-                      env_vars = c(ON_JENKINS = "true",
-                                   NOT_CRAN = "true",
-                                   TZ = "America/Denver"), ...)
-    } else {
-      devtools::check(...)
-    }
+    devtools::check(document = FALSE,
+                    vignettes = FALSE,
+                    env_vars = c(NOT_CRAN = "true",
+                                 TZ = "America/Denver"), ...)
   }
   .customCommands$detach_custom <- function() {
     message("Detaching '.customCommands' from search path")

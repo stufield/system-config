@@ -7,10 +7,10 @@ alias gpr='git pull --rebase --autostash -v'
 alias gwip='git add -u; git commit --no-verify --no-gpg-sign -m "wip"'
 
 
-# git-soma related functions
+# git related functions
 git_commit_cur() {
   CURPWD=$PWD
-  cd $R_SOMAVERSE
+  cd $GITHUB_PATH
   echo "\033[31mFetching latest commit SHA from current branch:\033[0m"
   printf "  \033[32m%-25s\033[33m Commit\033[0m\n" 'Package'
   for i in `ls -d */`; do
@@ -29,7 +29,7 @@ git_commit_cur() {
 
 git_tag_diff() {
   CURPWD=$PWD
-  cd $R_SOMAVERSE
+  cd $GITHUB_PATH
   for i in `ls -d */`; do
     cd $i
     DIR=${i%/}
@@ -53,7 +53,7 @@ git_tag_diff() {
 
 git_tags_cur() {
   CURPWD=$PWD
-  cd $R_SOMAVERSE
+  cd $GITHUB_PATH
   for i in `ls -d */`; do
     cd $i
     DIR=${i%/}
@@ -78,7 +78,7 @@ git_branch_sitrep() {
   printf "  \033[32m%-25s\033[33m Branch State\033[0m\n" 'Repository'
 
   DIRS=""
-  for i in `ls -d $R_SOMAVERSE/*/`; do
+  for i in `ls -d $GITHUB_PATH/*/`; do
     cd $i
     if [ -d ".git" ]; then
       DIRS+=($i)
@@ -107,7 +107,7 @@ git_branch_status() {
 
 git_check_status() {
   CURPWD=$PWD
-  cd $R_SOMAVERSE
+  cd $GITHUB_PATH
   for i in `ls -d */`; do
     cd $i
     if [ -d ".git" ]; then

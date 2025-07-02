@@ -7,7 +7,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:/Library/TeX/texbin:$PATH
-export PATH=/usr/lib/rstudio/resources/app/bin/quarto/bin:$PATH  # add Quarto from Posit
+#export PATH=/usr/lib/rstudio/resources/app/bin/quarto/bin:$PATH  # add Quarto from Posit
 
 export ZSH=$HOME/.oh-my-zsh
 #umask 022
@@ -147,10 +147,10 @@ setopt HIST_VERIFY            # when entering line with history expansion,
 export R_LIBS_USER=$HOME/r-libs
 export R_HISTSIZE=1000000
 export R_LIBS_DEV=$HOME/r-dev
-export R_SOMAVERSE=$HOME/sv
+#export R_SOMAVERSE=$HOME/sv
 export GITHUB_PATH=$HOME/github
 export LOCAL_UID=`id -u`
-export RSPM_SNAPSHOT=2024-02-21+54iKbr6-
+#export RSPM_SNAPSHOT=2024-02-21+54iKbr6-
 export PYTHONPATH=$HOME/scripts/modules
 
 # ------------------
@@ -184,3 +184,5 @@ source $HOME/.bash_functions
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 echo "\033[32m\xE2\x9C\x94\033[0m Welcome to \033[31mZSH \033[33m... \033[34m$USER\033[0m"
+
+. "$HOME/.local/bin/env"

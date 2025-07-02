@@ -2,10 +2,9 @@
 
 # ls
 alias l="ls -lAh"
-alias ll='ls -AFlh'
-alias lt='ls -AFlrth'
-alias la='ls -lah'
-alias lss='ls -ACF'
+alias ll='ls -lAh'
+alias lt='ls -lArth'
+alias lss='ls -aCF'
 
 # R
 alias R='R --quiet --no-save --no-restore-data'

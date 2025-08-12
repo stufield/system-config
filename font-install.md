@@ -2,20 +2,32 @@
 
 * Installers install files to the ~/Library/Fonts directory (MacOS)
 
+------------
+
 ### Not Sure If Necessary
 
 ```bash
 sudo sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-# Install powerlevel9k into ZSH
+
+------------
+
+# Install Powerlevel10k
+
+* [powerlevel10k](https://dev.to/abdfnx/oh-my-zsh-powerlevel10k-cool-terminal-1no0)
 
 ```bash
 echo $ZSH_CUSTOM
-git clone https://github.com/bhilburn/powerlevel9k.git $ZSH_CUSTOM/themes/powerlevel9k
+git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+source ~/.zshrc
+Kick start the installation wizard
 ```
 
-# Install powerline fonts
+
+------------
+
+# Install PowerLine fonts
 
 ```bash
 git clone https://github.com/powerline/fonts.git
@@ -34,17 +46,4 @@ cd nerd-fonts
 ./install.sh Meslo
 ./install.sh Inconsolata
 ```
-
-
-# Install Powerlevel10k
-
-* [powerlevel10k](https://dev.to/abdfnx/oh-my-zsh-powerlevel10k-cool-terminal-1no0)
-
-```bash
-echo $ZSH_CUSTOM
-git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-p10k configure
-```
-
-
 

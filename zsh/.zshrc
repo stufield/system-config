@@ -185,4 +185,3 @@ source $HOME/.bash_functions
 
 echo "\033[32m\xE2\x9C\x94\033[0m Welcome to \033[31mZSH \033[33m... \033[34m$USER\033[0m"
 
-. "$HOME/.local/bin/env"

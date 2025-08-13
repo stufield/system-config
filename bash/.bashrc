@@ -114,5 +114,3 @@ stty quit ""
 source $HOME/.bash_functions
 
 echo Welcome to BASH $USER
-
-. "$HOME/.local/bin/env"

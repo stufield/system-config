@@ -147,11 +147,9 @@ setopt HIST_VERIFY            # when entering line with history expansion,
 export R_LIBS_USER=$HOME/r-libs
 export R_HISTSIZE=1000000
 export R_LIBS_DEV=$HOME/r-dev
-#export R_SOMAVERSE=$HOME/sv
 export GITHUB_PATH=$HOME/github
+export GITLAB_PATH=$HOME/gitlab
 export LOCAL_UID=`id -u`
-#export RSPM_SNAPSHOT=2024-02-21+54iKbr6-
-export PYTHONPATH=$HOME/scripts/modules
 
 # ------------------
 # Oracle Variables

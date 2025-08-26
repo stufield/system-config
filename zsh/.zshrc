@@ -111,8 +111,8 @@ bindkey '^ ' autosuggest-accept     # accept suggestion: Crtl-space
 #bindkey '^M' autosuggest-execute   # execute suggestion: Enter
 
 # -----------------------------
-# source oh-my-zsh now this 
-# MUST come AFTER the plugins call
+# source oh-my-zsh now
+# this MUST come AFTER the plugins call
 # -----------------------------
 source $ZSH/oh-my-zsh.sh
 
@@ -122,28 +122,10 @@ source $ZSH/oh-my-zsh.sh
 # ---------------------------
 bindkey '^R' history-incremental-pattern-search-backward    # pattern match
 #bindkey '^R' history-incremental-search-backward           # exact match
-SAVEHIST=1000000              # Number of entries
-HISTSIZE=1000000
-HISTFILE=~/.bash_history      # File
-BH=$HISTFILE
-setopt APPEND_HISTORY         # Don't erase history
-#setopt EXTENDED_HISTORY      # Add additional data to history like timestamp
-unsetopt EXTENDED_HISTORY     # Don't add data to history -> compatible with .bash_history
-setopt INC_APPEND_HISTORY     # Add immediately
-setopt HIST_FIND_NO_DUPS      # Don't show duplicates in search
-setopt HIST_SAVE_NO_DUPS      # Don't save duplicates in history
-setopt HIST_IGNORE_SPACE      # Don't save lines with first character spaces.
-setopt NO_HIST_BEEP           # Don't beep
-setopt SHARE_HISTORY          # Share history between session/terminals
-setopt HIST_EXPIRE_DUPS_FIRST # If entries must be culled from history, lose duplicates first
-setopt HIST_VERIFY            # when entering line with history expansion,
-                              # don’t execute the line directly; instead, perform history expansion 
-                              # and reload the line into the editing buffer
 
 # -------------
 # R Variables
 # -------------
-#export JAVA_HOME=/usr/lib/jvm/java-9-oracle/bin/java
 export R_LIBS_USER=$HOME/r-libs
 export R_HISTSIZE=1000000
 export R_LIBS_DEV=$HOME/r-dev
@@ -169,7 +151,6 @@ export ORACLE_HOME=/usr/lib/oracle/12.2/client64
 
 if [[ "$OSTYPE" == "linux"* ]]; then
   xrdb ~/.Xdefaults
-  export MEDIA=/media/jack
   export TRASH=~/.local/share/Trash/files
 fi
 

@@ -57,60 +57,49 @@ autocmd FileType adat set ts=75
 autocmd FileType tex syntax spell toplevel 
 
 
+" -------------
+" Shortcuts
+" -------------
 " single character insert
 nmap <Space> i_<Esc>r
 
 " wrap text ~ 80 char single line
-nmap <F4> gq$
+nmap <F5> gq$
 
+
+" Update the spell check binary file
+function UpdateSpell()
+   :mkspell! ~/.vim/spell/en.utf-8.add
+endfunction
+
+nmap <F6> :call UpdateSpell() <CR>
+
+
+" Fix a line tab with a J + i + Return + Esc
+function FixLine()
+   call feedkeys("J")
+   call feedkeys("i")
+   call feedkeys("\<CR>")
+   call feedkeys("\<ESC>")
+endfunction
+
+" map to Shift + downarrow
+nmap <S-Down> :call FixLine() <CR>
+
+
+
+
+
+" ------------------------
+" R related code snippets
+" ------------------------
 " Replace equal sign (=) with <- symbol in R
 function ReplaceEquals()
 	s<=<\<-
 endfunction
 
-nmap <F3> :call ReplaceEquals() <CR>
+" nmap <F3> :call ReplaceEquals() <CR>
 
-
-" Roxygen stuff
-let @r="i#' Title\n#'\n#' Description\n#'\n#' Details\n#'\n#' @param \n#' @param \n#' @param\n#'\n#' @return\n#' @examples\n#'\n#'\n#'\n#' @export\n"
-
-function Getparams()
-	let s:start = line('.')
-	let s:end = search("{")
-	if stridx(getline(s:end),"{") == 0
-		let s:end = s:end - 1
-	endif
-	let s:lines=getline(s:start,s:end)
-	let linesCnt=len(s:lines)
-	let mlines=join(s:lines)
-	let mlines=substitute(mlines," ","","g")
-	let paraFlag1=stridx(mlines,'(')
-	let paraFlag2=strridx(mlines,')')
-	let paraLen=paraFlag2-paraFlag1-1
-	let parastr=strpart(mlines,paraFlag1+1,paraLen)
-	let alist=[]
-	if  stridx(parastr,',') != -1
-		let s:paras=split(parastr,',')
-		let s:idx=0
-		while s:idx < len(s:paras)
-			if stridx(s:paras[s:idx],'=') != -1
-				let s:realpara = split(s:paras[s:idx],'=')[0]
-			else
-				let s:realpara = s:paras[s:idx]
-			endif
-			"strip the leading blanks
-			""call  append(s:start - 1 + s:idx "#' @param " . s:realpara)
-			call add(alist,s:realpara) 
-			let s:idx = s:idx + 1
-		endwhile
-	else
-		"call append(s:start-1,parastr) 
-		if parastr != ""
-			call add(alist,parastr) 
-		endif
-	endif
-	return alist
-endfunction
 
 function Rdoc()
 	let s:wd=expand("")
@@ -143,26 +132,5 @@ function Rdoc()
 	call append(s:lineNo + 7 + s:idx + 12,"#' @export ")
 endfunction
 
-nmap <F5> :call Rdoc() <CR>
-
-
-
-" Update the spell check binary file
-function UpdateSpell()
-   :mkspell! ~/.vim/spell/en.utf-8.add
-endfunction
-
-nmap <F6> :call UpdateSpell() <CR>
-
-
-" Fix a line tab with a J + i + Return + Esc
-function FixLine()
-   call feedkeys("J")
-   call feedkeys("i")
-   call feedkeys("\<CR>")
-   call feedkeys("\<ESC>")
-endfunction
-
-" map to Shift + downarrow
-nmap <S-Down> :call FixLine() <CR>
+" nmap <F9> :call Rdoc() <CR>
 

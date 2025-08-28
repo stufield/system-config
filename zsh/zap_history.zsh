@@ -34,5 +34,5 @@ setopt HIST_VERIFY            # when entering line with history expansion,
                               # instead, perform history expansion
                               # and reload the line into the editing buffer
 
-sed -E 's/^: [0-9]+:[0-9]+;//' $BH | awk '!seen[$0]++' > tmp
-mv -f tmp $BH
+sed -E 's/^: [0-9]+:[0-9]+;//' $BH | awk '!seen[$0]++' > $BH.backup
+#mv -f tmp $BH

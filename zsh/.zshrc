@@ -7,15 +7,14 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:/Library/TeX/texbin:$PATH
-#export PATH=/usr/lib/rstudio/resources/app/bin/quarto/bin:$PATH  # add Quarto from Posit
 
 export ZSH=$HOME/.oh-my-zsh
 #umask 022
 umask u=rwx,go=rx
 
-# ------------
+# ----
 # VIM
-# ------------
+# ----
 set -o vi
 export EDITOR=/usr/bin/vim
 # Better searching in command mode
@@ -147,7 +146,7 @@ export ORACLE_HOME=/usr/lib/oracle/12.2/client64
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+export SSH_KEY_PATH=$HOME/.ssh/
 
 if [[ "$OSTYPE" == "linux"* ]]; then
   xrdb ~/.Xdefaults

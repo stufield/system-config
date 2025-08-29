@@ -19,7 +19,7 @@
 	prompt = false
 	tool = vimdiff
 [alias]
-	authorship = !git config --local user.name \"Stu Field\" && git config --local user.email \"stu.g.field@gmail.com\"
+	authorship = !git config --local user.name \"Stu Field\" && git config --local user.email \"stu.field@cercle.ai\"
 	diffcommit = "!f() { git diff HEAD~$(($1-1))..HEAD~$(($2-1)); }; f"
 	merged = !git branch --merged $git_main_branch
 	no-merged = !git branch --no-merged $git_main_branch

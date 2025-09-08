@@ -63,8 +63,9 @@ if ( interactive() ) {
                 stdout = TRUE, stderr = FALSE),
         warning = function(w) emoji[.prompt_env$id]
       )
-      br <- paste0("\033[34m", br, "\033[39m")
-      paste("\033[36m@", br, "\033[31m> \033[39m")
+      return(paste("@" , br, "> "))
+      #br <- paste0("\033[34m", br, "\033[39m")
+      #paste("\033[36m@", br, "\033[31m> \033[39m")
     }
     addTaskCallback(
       function(expr, value, ok, visible) {

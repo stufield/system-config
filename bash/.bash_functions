@@ -5,9 +5,21 @@
 #   for user specific common operations
 # --------------------------------- #
 
+# VIM split
+vims() {
+  # [-o | --open] flag for opening files
+  USAGE="Usage: $0 [file1] [file2]"
+  if [[ "$#" -ne 2 ]]; then
+    echo "$USAGE"
+    return 1
+  fi
+  echo "Opening \033[34m$1\033[0m and \033[34m$2\033[0m:"
+  vim -O $1 $2
+}
+
 vigrep() {
   # [-o | --open] flag for opening files
-  USAGE="Usage: $0 [-o | --open] pattern files"
+  USAGE="Usage: $0 [-o | --open] [pattern] [files]"
   if [[ "$#" -lt 2 || $1 == "-open" ]]; then
     echo "$USAGE"
     return 1

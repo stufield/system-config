@@ -1,10 +1,9 @@
 # Subject:
-[what did you do?] | [what has changed?]
+[what did you do?] | [which files changed?]
 
 # Body:
-- [feature name]
-- [what is the issue] | [JIRA no.]
-- [what you did to resolve]
+- [what is the issue]
+- [what you did to resolve it]
 - fixes #[0-9]
 
 # Guidelines: writing useful git messages ensures that your

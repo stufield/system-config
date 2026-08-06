@@ -21,6 +21,7 @@ set suffixesadd=.R
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
+set textwidth=70
 set showcmd
 set magic
 set autowrite	" autowrite buffer when switching

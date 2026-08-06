@@ -1,10 +1,12 @@
 # add an alias to the Git plugin
 alias gau='git add -u'
+alias gs='git status -s'
 alias gpo='git stash pop --index'
 alias gtn='git tag -n'
 alias gac='git commit --amend --no-edit'
 alias gpr='git pull --rebase --autostash -v'
 alias gwip='git add -u; git commit --no-verify --no-gpg-sign -m "wip"'
+alias gdc='git diff --cached'
 
 
 # git related functions

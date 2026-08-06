@@ -129,7 +129,7 @@ export R_LIBS_USER=$HOME/r-libs
 export R_HISTSIZE=1000000
 export R_LIBS_DEV=$HOME/r-dev
 export GITHUB_PATH=$HOME/github
-export GITLAB_PATH=$HOME/gitlab
+export GITLAB_PATH=$HOME/cercle
 export LOCAL_UID=`id -u`
 
 # ------------------

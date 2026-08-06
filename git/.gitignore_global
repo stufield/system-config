@@ -19,6 +19,8 @@
 # R history files
 .Rhistory
 .Rapp.history
+.RData
+.Ruserdata
 
 # RStudio files
 .Rproj.user

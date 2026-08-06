@@ -105,7 +105,7 @@ local({
   }
   .customCommands$detach_custom <- function() {
     message("Detaching '.customCommands' from search path")
-    detach(".customCommands", unload = TRUE, force = TRUE, character = TRUE)
+    detach(".customCommands", unload = TRUE, force = TRUE, character.only = TRUE)
   }
   attach(.customCommands)
 })

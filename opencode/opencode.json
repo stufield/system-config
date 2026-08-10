@@ -1,0 +1,73 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "amazon-bedrock": {
+      "options": {
+        "region": "us-east-1",
+        "profile": "default"
+      }
+    }
+  },
+  "enabled_providers": ["amazon-bedrock"],
+  "default_agent": "main",
+  "share": "disabled",
+  "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6",
+  "small_model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "agent": {
+    "build": { "disable": true },
+    "plan": { "disable": true },
+    "basic": {
+      "model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0",
+      "description": "Use for very basic prompting. Eventually this model will become obsolete.",
+      "prompt": "At the start of each session, load and follow these skills in order: agent-behavior, caveman."
+    },
+    "main": {
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6",
+      "description": "This is the standard work-horse default. Use for standard work interactions.",
+      "mode": "primary",
+      "prompt": "At the start of each session, load and follow these skills in order: agent-behavior, caveman."
+    },
+    "hard": {
+      "model": "amazon-bedrock/global.anthropic.claude-opus-4-7",
+      "description": "Use for complex debugging or architecture problems Sonnet 4.6 can't solve.",
+      "mode": "all",
+      "prompt": "At the start of each session, load and follow these skills in order: agent-behavior, coding, caveman."
+    },
+    "harder": {
+      "model": "amazon-bedrock/global.anthropic.claude-opus-5",
+      "description": "Use for complex debugging or architecture problems Opus 4.7 can't solve.",
+      "mode": "all",
+      "prompt": "At the start of each session, load and follow these skills in order: agent-behavior, coding, caveman."
+    },
+    "mega": {
+      "model": "amazon-bedrock/global.anthropic.claude-fable-5",
+      "description": "Use for complex debugging or architecture problems Opus 5 can't solve.",
+      "mode": "all",
+      "prompt": "At the start of each session, load and follow these skills in order: agent-behavior, coding, caveman."
+    }
+  },
+  "skills": {
+    "paths": [
+      "/Users/sfield/.agents/skills",
+      "/Users/sfield/cercle/agent-skills"
+    ]
+  },
+  "permission": {
+    "skill": "allow"
+  },
+  "mcp": {
+    "fert": {
+      "type": "local",
+      "command": [
+        "/opt/homebrew/bin/uv",
+        "--directory",
+        "FULL PATH TO the MCP REPO, example: /Users/sfield/cercle/git/dunno-where-this-is",
+        "run",
+        "python",
+        "server.py"
+      ],
+      "enabled": false,
+      "timeout": 300000
+    }
+  }
+}

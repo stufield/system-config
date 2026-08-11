@@ -11,7 +11,7 @@
   "enabled_providers": ["amazon-bedrock"],
   "default_agent": "main",
   "share": "disabled",
-  "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6",
+  "model": "amazon-bedrock/global.anthropic.claude-sonnet-5",
   "small_model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0",
   "agent": {
     "build": { "disable": true },
@@ -22,24 +22,18 @@
       "prompt": "At the start of each session, load and follow these skills in order: agent-behavior, caveman."
     },
     "main": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6",
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-5",
       "description": "This is the standard work-horse default. Use for standard work interactions.",
       "mode": "primary",
       "prompt": "At the start of each session, load and follow these skills in order: agent-behavior, caveman."
     },
     "hard": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-4-7",
-      "description": "Use for complex debugging or architecture problems Sonnet 4.6 can't solve.",
+      "model": "amazon-bedrock/global.anthropic.claude-opus-5",
+      "description": "Use for complex debugging or architecture problems Sonnet 5 can't solve.",
       "mode": "all",
       "prompt": "At the start of each session, load and follow these skills in order: agent-behavior, coding, caveman."
     },
     "harder": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-5",
-      "description": "Use for complex debugging or architecture problems Opus 4.7 can't solve.",
-      "mode": "all",
-      "prompt": "At the start of each session, load and follow these skills in order: agent-behavior, coding, caveman."
-    },
-    "mega": {
       "model": "amazon-bedrock/global.anthropic.claude-fable-5",
       "description": "Use for complex debugging or architecture problems Opus 5 can't solve.",
       "mode": "all",
@@ -49,11 +43,23 @@
   "skills": {
     "paths": [
       "/Users/sfield/.agents/skills",
-      "/Users/sfield/cercle/agent-skills"
+      "/Users/sfield/github/agent-skills"
     ]
   },
   "permission": {
-    "skill": "allow"
+    "skill": "allow",
+    "bash": {
+      "*": "allow",
+      "rm -rf *": "ask",
+      "rm -fr *": "ask",
+      "sudo rm*": "ask",
+      "git push --force*": "ask",
+      "git push -f*": "ask",
+      "git reset --hard*": "ask",
+      "git branch -D": "ask",
+      "git clean -fd*": "ask"
+    },
+    "external_directory": { "*": "ask" }
   },
   "mcp": {
     "fert": {

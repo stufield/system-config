@@ -89,18 +89,12 @@ endfunction
 nmap <S-Down> :call FixLine() <CR>
 
 
-
-
-
 " ------------------------
 " R related code snippets
 " ------------------------
-" Replace equal sign (=) with <- symbol in R
-function ReplaceEquals()
-	s<=<\<-
-endfunction
-
-" nmap <F3> :call ReplaceEquals() <CR>
+" Replace equal sign (=) with <- symbol
+" cursor must be BEFORE the (=) symbol
+nnoremap ; f=cl<lt>-<Esc>
 
 
 function Rdoc()

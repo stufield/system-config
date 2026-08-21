@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.ts set filetype=ts
+autocmd BufRead,BufNewFile *.ts set filetype=ts

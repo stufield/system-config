@@ -92,5 +92,4 @@ nmap <S-Down> :call FixLine() <CR>
 " ------------------------
 " Replace equal sign (=) with <- symbol
 " cursor must be BEFORE the (=) symbol
-autocmd FileType r,rmd,quarto nnoremap <buffer> ; f=cl<lt>-<Esc>
-
+nmap ; f=s<lt>-<Esc>

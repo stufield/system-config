@@ -24,7 +24,7 @@ set suffixesadd=.R
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-set textwidth=70
+set textwidth=60
 set showcmd
 set magic
 set autowrite	" autowrite buffer when switching
@@ -63,7 +63,7 @@ autocmd FileType ts syntax off
 " single character insert
 nmap <Space> i_<Esc>r
 
-" wrap text ~ 80 char single line
+" wrap text ~ 60 char single line
 nmap <F5> gq$
 
 

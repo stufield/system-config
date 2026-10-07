@@ -5,4 +5,5 @@ PATH=/usr/local/bin:/usr/bin:/bin
 R_LIBS_USER=~/r-libs
 R_LIBS_DEV=~/r-dev
 GITHUB_PATH=~/github
+PSEUDO_SALT="cerclesalt"
 

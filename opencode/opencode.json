@@ -22,14 +22,14 @@
       "prompt": "Load and follow these skills in order: agent-behavior, caveman."
     },
     "main": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-5",
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-5-5",
       "description": "This is the standard work-horse default. Use for standard work interactions.",
       "mode": "primary",
       "prompt": "Load and follow these skills in order: agent-behavior, caveman, coding, r-analysis."
     },
     "hard": {
       "model": "amazon-bedrock/global.anthropic.claude-opus-5-5",
-      "description": "Use for complex debugging or architecture problems Sonnet 5 can't solve.",
+      "description": "Use for complex debugging or architecture problems Sonnet 5.5 can't solve.",
       "mode": "all",
       "prompt": "Load and follow these skills in order: agent-behavior, caveman, coding, r-analysis."
     }

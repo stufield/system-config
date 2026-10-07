@@ -107,6 +107,66 @@ git_branch_status() {
   fi
 }
 
+# Is a branch safe to delete? i.e. is all of its *content* already in
+# the default branch. Works for squash/rebase merges, which a plain
+# `git branch --merged` / `merge-base --is-ancestor` check reports as
+# "not merged" because the original commits never land in main's history.
+#
+# Logic:
+#   1. fast path: branch tip is an ancestor of default -> merged
+#   2. otherwise list files the branch changed since it forked
+#      (3-dot diff), then compare those files between the two tips
+#      (2-dot diff). Empty diff -> every change is in the default branch.
+#
+# Limitation: ✘ does NOT mean "unmerged work". It compares the two
+# *tips*, so any change the default branch made AFTER the fork (files
+# moved, re-generated, refactored) also shows as a difference. ✘ means
+# "needs a human review". ✔ is reliable; ✘ is only a prompt to look.
+#
+# Read-only: never deletes. Returns 0 = safe, 1 = differs, 2 = usage error.
+# Usage: git_branch_merged <branch> [base]   (base defaults to main branch)
+git_branch_merged() {
+  local branch=$1
+  local base=${2:-$(git_main_branch)}   # git_main_branch from ZSH git plugin
+  if [[ -z $branch ]]; then
+    echo "Usage: git_branch_merged <branch> [base]"
+    return 2
+  fi
+  # verify both refs exist before diffing; a typo would otherwise
+  # surface as a cryptic git error mid-check
+  for ref in $branch $base; do
+    if ! git rev-parse --verify --quiet "$ref^{commit}" > /dev/null; then
+      echo "\033[31m✘ not a branch/commit: $ref\033[0m"
+      return 2
+    fi
+  done
+
+  if git merge-base --is-ancestor $branch $base; then
+    echo "\033[32m✔ $branch\033[0m is an ancestor of \033[34m$base\033[0m (true merge). Safe to delete: git branch -d $branch"
+    return 0
+  fi
+
+  # (@f) splits on newlines only, so paths with spaces stay intact;
+  # an unquoted $(...) in zsh would split them on spaces
+  local files=("${(@f)$(git diff --name-only $base...$branch)}")
+  # empty array guard: `git diff A B --` with no paths compares the
+  # WHOLE tree, which would report unrelated differences
+  if [[ -z ${files[1]} ]]; then
+    echo "\033[32m✔ $branch\033[0m has no changes relative to \033[34m$base\033[0m. Safe to delete: git branch -D $branch"
+    return 0
+  fi
+
+  if git diff --quiet $base $branch -- $files; then
+    echo "\033[32m✔ $branch\033[0m: all ${#files} changed files identical in \033[34m$base\033[0m (squash/rebase merged)."
+    echo "  Safe to delete (needs -D): git branch -D $branch"
+    return 0
+  else
+    echo "\033[31m✘ $branch\033[0m: content differs from \033[34m$base\033[0m. Inspect before deleting:"
+    git diff --stat $base $branch -- $files
+    return 1
+  fi
+}
+
 git_check_status() {
   CURPWD=$PWD
   cd $GITHUB_PATH

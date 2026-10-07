@@ -206,6 +206,41 @@ joinpdf(){
 }
 
 
+# print an HTML file to PDF via headless Chrome; keeps the page CSS
+#   (branding, fonts, tables), unlike pandoc/LaTeX PDF output.
+#   outfile defaults to the input name with .pdf
+#   bash + zsh portable: this file is sourced by both
+html2pdf(){
+  USAGE="Usage: html2pdf [file.html] [outfile.pdf]"
+  chrome="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+  if [[ "$#" -lt 1 || "$#" -gt 2 || $1 == "-h" || $1 == "--help" ]]; then
+    echo "$USAGE"
+    return 1
+  fi
+  if [[ ! -f "$1" ]]; then
+    echo "html2pdf: no such file: $1"
+    return 1
+  fi
+  if [[ ! -x "$chrome" ]]; then
+    echo "html2pdf: Google Chrome not found at $chrome"
+    return 1
+  fi
+  # absolute paths: Chrome needs a file:// URL; subshell keeps cwd
+  in="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+  out="${2:-${1%.*}.pdf}"
+  out="$(cd "$(dirname "$out")" && pwd)/$(basename "$out")"
+  # stderr hidden: harmless macOS 'task_policy_set' noise from Chrome
+  "$chrome" --headless=new --disable-gpu --no-pdf-header-footer \
+    --print-to-pdf="$out" "file://$in" 2>/dev/null
+  if [[ -s "$out" ]]; then
+    echo "* Created $out"
+  else
+    echo "html2pdf: failed to write $out"
+    return 1
+  fi
+}
+
+
 convertpng(){
   if [ ! -d ./png ]; then
     mkdir ./png

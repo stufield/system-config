@@ -12,12 +12,12 @@
   "default_agent": "main",
   "share": "disabled",
   "model": "amazon-bedrock/global.anthropic.claude-opus-5-5",
-  "small_model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "small_model": "amazon-bedrock/global.anthropic.claude-haiku-5-5",
   "agent": {
     "build": { "disable": true },
     "plan": { "disable": true },
     "basic": {
-      "model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0",
+      "model": "amazon-bedrock/global.anthropic.claude-haiku-5-5",
       "description": "Use for very basic prompting. Eventually this model will become obsolete.",
       "prompt": "Load and follow these skills in order: agent-behavior, caveman."
     },

@@ -1,0 +1,131 @@
+#!/usr/bin/env -S Rscript --vanilla
+# pre-commit (R port): strip trailing whitespace from staged
+#   files.
+#
+# - Only touches files in this commit (added/copied/modified/renamed).
+# - Skips binary files (any NUL byte), non-UTF-8 files, symlinks and
+#   directories (submodules).
+# - Files with unstaged changes (e.g. after `git add -p`) are NOT edited:
+#   re-staging the whole file would sneak unstaged hunks into the
+#   commit. The commit is aborted instead so you can fix by hand.
+# - Bytes in = bytes out, apart from the stripped whitespace: the final
+#   newline is never added or removed, and CRLF line endings are kept.
+# - Caution: in Markdown, two trailing spaces = hard line break. This
+#   hook removes them in .qmd files. Use a backslash `\` at line end
+#   for hard breaks instead.
+# - Bypass once with: git commit --no-verify
+# - Needs `helpr` (trim() + signal_*() output). If it is missing the
+#   hook warns loudly on stderr and lets the commit through.
+# - `env -S` is needed to pass `--vanilla` through the shebang; works
+#   on macOS and GNU coreutils >= 8.30.
+
+# Fail open, but never silently: a missing package must not look like
+#   "no trailing whitespace found".
+if (!requireNamespace("helpr", quietly = TRUE)) {
+  message("pre-commit: package `helpr` not installed. ",
+          "Trailing whitespace NOT checked.")
+  quit(save = "no", status = 0L)
+}
+
+# Run git(); return exit status (quiet) or stdout lines (capture).
+#   Capture mode stops the hook if git fails: otherwise a failed
+#   `git diff` looks the same as "nothing staged".
+git <- function(..., capture = FALSE) {
+  if (capture) {
+    out    <- suppressWarnings(system2("git", c(...), stdout = TRUE))
+    status <- attr(out, "status") # NULL when git exits 0
+    if (!is.null(status) && status != 0L) {
+      helpr::signal_oops("pre-commit: `git", paste(c(...), collapse = " "),
+                         "` failed with status", status)
+      quit(save = "no", status = 1L)
+    }
+    out
+  } else {
+    system2("git", c(...), stdout = FALSE, stderr = FALSE)
+  }
+}
+
+strip_trailing_ws <- function(txt) {
+  lines <- strsplit(paste0(txt, "\n"), "\n", fixed = TRUE)[[1L]]
+  paste(helpr::trim(lines, "right", "[ \t]"), collapse = "\n")
+}
+
+# Staged files. No `-z`: R strings cannot hold NUL bytes. Line-based
+#   output handles spaces; `core.quotePath=false` stops git escaping
+#   non-ASCII names. Names containing a newline are not supported.
+#   ACMR = Added, Copied, Modified, Renamed. This drops deleted files,
+#   which no longer exist on disk and would make the read below fail.
+files <- git(
+  "-c", "core.quotePath=false",
+  "diff", "--cached", "--name-only", "--diff-filter=ACMR",
+  #"--", shQuote("*.R"), shQuote("*.qmd"),
+  capture = TRUE)
+
+fixed   <- character(0L)
+blocked <- character(0L)
+
+for (f in files) {
+  # Not a regular file: submodule (directory) or symlink. Do nothing.
+  if (dir.exists(f) || nzchar(Sys.readlink(f))) {
+    next
+  }
+
+  # Raw bytes, so what we write back is exactly what we read.
+  bytes <- readBin(f, what = "raw", n = file.size(f))
+
+  # Binary file: a NUL byte cannot live in an R string and would
+  #   truncate the file on write-back. Never touch these.
+  if (any(bytes == as.raw(0L))) {
+    next
+  }
+
+  txt <- rawToChar(bytes)
+
+  # Not valid UTF-8 (e.g. latin1): regex on it can error. Skip it.
+  if (!validUTF8(txt)) {
+    next
+  }
+
+  new <- strip_trailing_ws(txt)
+  if (identical(new, txt)) { # nothing to strip
+    next
+  }
+
+  # exit status 1 = unstaged changes in this file
+  if (git("diff", "--quiet", "--", shQuote(f)) != 0L) {
+    blocked <- c(blocked, f)
+    next
+  }
+
+  writeBin(charToRaw(new), f)
+
+  if (git("add", "--", shQuote(f)) != 0L) {
+    helpr::signal_oops(
+      "pre-commit hook: `git add` failed for", helpr::value(f))
+    quit(save = "no", status = 1L)
+  }
+  fixed <- c(fixed, f)
+}
+
+if (length(fixed)) {
+  helpr::signal_info(
+    "pre-commit hook: stripped trailing whitespace from",
+    length(fixed), "file(s):")
+  for (fixed_f in fixed) {
+    helpr::signal_done(helpr::value(fixed_f))
+  }
+}
+
+if (length(blocked)) {
+  helpr::signal_oops(
+    "pre-commit hook: trailing whitespace in partially",
+    "staged files:")
+  for (blocked_f in blocked) {
+    helpr::signal_oops(helpr::value(blocked_f))
+  }
+  helpr::signal_info(
+    "Fix by hand and re-stage, or commit with --no-verify.")
+  quit(save = "no", status = 1L)
+}
+
+quit(save = "no", status = 0L)

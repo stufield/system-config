@@ -131,6 +131,7 @@ export R_LIBS_DEV=$HOME/r-dev
 export GITHUB_PATH=$HOME/github
 export GITLAB_PATH=$HOME/cercle
 export PSEUDO_SALT="cerclesalt"
+export DSTDATA_ROOT=$HOME/cercle/dst-data/data
 export LOCAL_UID=`id -u`
 
 # ------------------

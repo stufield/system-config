@@ -34,5 +34,7 @@ setopt HIST_VERIFY            # when entering line with history expansion,
                               # instead, perform history expansion
                               # and reload the line into the editing buffer
 
-sed -E 's/^: [0-9]+:[0-9]+;//' $BH | awk '!seen[$0]++' > $BH.backup
+# LC_ALL=C makes sed read raw bytes. Without it, BSD sed on macOS
+# aborts with "illegal byte sequence" if history has invalid UTF-8.
+LC_ALL=C sed -E 's/^: [0-9]+:[0-9]+;//' $BH | awk '!seen[$0]++' > $BH.backup
 #mv -f tmp $BH

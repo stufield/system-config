@@ -5,6 +5,8 @@
 # - Only touches files in this commit (added/copied/modified/renamed).
 # - Skips binary files (any NUL byte), non-UTF-8 files, symlinks and
 #   directories (submodules).
+# - Skips testthat snapshots (tests/testthat/_snaps/): they must stay
+#   byte-exact, trailing spaces included.
 # - Files with unstaged changes (e.g. after `git add -p`) are NOT edited:
 #   re-staging the whole file would sneak unstaged hunks into the
 #   commit. The commit is aborted instead so you can fix by hand.
@@ -65,6 +67,11 @@ fixed   <- character(0L)
 blocked <- character(0L)
 
 for (f in files) {
+  # testthat snapshots must stay byte-exact
+  if (grepl("^tests/testthat/_snaps/", f)) {
+    next
+  }
+
   # Not a regular file: submodule (directory) or symlink. Do nothing.
   if (dir.exists(f) || nzchar(Sys.readlink(f))) {
     next

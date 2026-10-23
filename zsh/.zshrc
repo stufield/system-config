@@ -135,7 +135,7 @@ export DSTDATA_ROOT=$HOME/cercle/dst-data/data
 export LOCAL_UID=`id -u`
 
 # ------------------
-# Oracle Variables
+# Other Variables
 # ------------------
 export LD_LIBRARY_PATH=/usr/lib/oracle/12.2/client64/lib
 export TNS_ADMIN=/usr/lib/oracle/12.2/client64

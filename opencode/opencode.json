@@ -2,9 +2,10 @@
   "$schema": "https://opencode.ai/config.json",
   "provider": {
     "amazon-bedrock": {
-      "options": {
-        "region": "us-east-1",
-        "profile": "default"
+      "models": {
+        "global.anthropic.claude-sonnet-5-5": { "name": "Claude Sonnet 5.5" },
+        "global.anthropic.claude-haiku-5-5": { "name": "Claude Haiku 5.5" },
+        "global.anthropic.claude-opus-5-5": { "name": "Claude Opus 5.5" }
       }
     }
   },
